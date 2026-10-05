@@ -1,3 +1,4 @@
+/.ddev
 *.log
 .DS_Store
 .env
