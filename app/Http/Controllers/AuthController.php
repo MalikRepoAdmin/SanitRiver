@@ -37,11 +37,11 @@ class AuthController extends Controller
             // 'confirmed' option is required so user can confirm their password to ensure they remember their password
             // TODO: 'confirmed' option needs 'password_confirmation' on frontend. for example <input type="password" name="password_confirmation">
             'password' => 'required|min:6|confirmed', 
-            'nama_lengkap' => 'required',
+            'nama_lengkap' => 'required|max:255',
             'tgl_lahir' => 'required',
 
             'bio' => 'sometimes|nullable',
-            'pekerjaan' => 'sometimes|nullable',
+            'pekerjaan' => 'sometimes|nullable|max:255',
             'domisili' => 'sometimes|nullable',
         ], [
             // Error response
@@ -49,7 +49,8 @@ class AuthController extends Controller
             'username.unique' => 'Username ini sudah terdaftar, silahkan gunakan username lain',
             'password.confirmed' => 'Konfirmasi password tidak cocok.',
             'required' => 'Kolom ini wajib diisi dan tidak boleh kosong.',
-            'max:255' => 'Maksimal 255 karakter',
+            'nama_lengkap.max:255' => 'Nama lengkap Maksimal 255 karakter',
+            'pekerjaan.max:255' => 'Pekerjaan Maksimal 255 karakter',
         ]);
 
         // Store  the user to database
