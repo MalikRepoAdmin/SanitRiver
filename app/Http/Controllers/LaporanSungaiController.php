@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\LaporanSungai;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Validator;
+
 class LaporanSungaiController extends Controller
 {
     /**
@@ -12,7 +14,9 @@ class LaporanSungaiController extends Controller
      */
     public function index()
     {
-        //
+        $items = LaporanSungai::with(['user', 'sungai', 'gambarSungais'])->get();
+
+        return response()->json($items);
     }
 
     /**
@@ -20,7 +24,7 @@ class LaporanSungaiController extends Controller
      */
     public function create()
     {
-        //
+        return response()->json(['message' => 'Display create form for LaporanSungai']);
     }
 
     /**
@@ -28,7 +32,16 @@ class LaporanSungaiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'user_id' => 'required|exists:users,user_id',
+            'sungai_id' => 'required|exists:sungais,sungai_id',
+            'status' => 'nullable|string',
+            'persetujuan' => 'nullable',
+        ]);
+
+        $laporan = LaporanSungai::create($data);
+
+        return response()->json($laporan, 201);
     }
 
     /**
@@ -36,7 +49,9 @@ class LaporanSungaiController extends Controller
      */
     public function show(LaporanSungai $laporanSungai)
     {
-        //
+        $laporanSungai->load(['user', 'sungai', 'gambarSungais']);
+
+        return response()->json($laporanSungai);
     }
 
     /**
@@ -44,7 +59,7 @@ class LaporanSungaiController extends Controller
      */
     public function edit(LaporanSungai $laporanSungai)
     {
-        //
+        return response()->json(['message' => 'Display edit form', 'data' => $laporanSungai]);
     }
 
     /**
@@ -52,7 +67,16 @@ class LaporanSungaiController extends Controller
      */
     public function update(Request $request, LaporanSungai $laporanSungai)
     {
-        //
+        $data = $request->validate([
+            'user_id' => 'nullable|exists:users,user_id',
+            'sungai_id' => 'nullable|exists:sungais,sungai_id',
+            'status' => 'nullable|string',
+            'persetujuan' => 'nullable',
+        ]);
+
+        $laporanSungai->update($data);
+
+        return response()->json($laporanSungai);
     }
 
     /**
@@ -60,6 +84,9 @@ class LaporanSungaiController extends Controller
      */
     public function destroy(LaporanSungai $laporanSungai)
     {
-        //
+        // Optionally detach/delete related images if needed; keep simple here.
+        $laporanSungai->delete();
+
+        return response()->json(['message' => 'Deleted']);
     }
 }

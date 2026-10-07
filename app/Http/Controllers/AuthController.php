@@ -14,7 +14,7 @@ class AuthController extends Controller
      */
     public function showRegisterUser()
     {
-        return view('auth.register');
+        return view('users.index');
     }
 
     /**
@@ -22,7 +22,7 @@ class AuthController extends Controller
      */
     public function showRegisterAdmin()
     {
-        return view('auth.register');
+        return view('users.index');
     }
 
     /**
@@ -116,7 +116,7 @@ class AuthController extends Controller
      */
     public function showLoginUser()
     {
-        return view('auth.login');
+        return view('users.index');
     }
 
     /**
@@ -124,7 +124,7 @@ class AuthController extends Controller
      */
     public function showLoginAdmin()
     {
-        return view('auth.login');
+        return view('users.index');
     }
 
     /**
