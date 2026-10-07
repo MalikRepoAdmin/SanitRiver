@@ -4,15 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $perPage = $request->integer('per_page', 20);
+        $perPage = min($perPage, 100);
+
+        $admins = Admin::with(['sungais'])->latest()->paginate($perPage);
+
+        return view('users.index', compact('admins'));
     }
 
     /**
@@ -34,9 +40,14 @@ class AdminController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Admin $admin)
+    public function show(string $admin_id)
     {
-        //
+        $admin = Admin::where('admin_id', $admin_id)->with(['sungais.gambarSungais'])->first();
+
+        $nameWordCount = str($admin->username)->wordCount() > 1 ? 2 : 1;
+
+        // TODO: define the view route according to frontend inside views/
+        return view('users.index', compact('admin', 'nameWordCount'));
     }
 
     /**
