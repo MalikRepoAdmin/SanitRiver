@@ -18,13 +18,13 @@ class UserController extends Controller
 
         $users = User::with(['laporanSungais'])->latest()->paginate($perPage);
 
-        return view('users', compact('users'));
+        return view('users.index', compact('users'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
         //
     }
@@ -40,14 +40,14 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $user_id)
     {
-        $user = User::where('user_id', Auth::id())->with(['laporanSungais.gambarSungais'])->first();
+        $user = User::where('user_id', $user_id)->with(['laporanSungais.gambarSungais'])->first();
 
-        $nameWordCount = str($user->nama)->wordCount() > 1 ? 2 : 1;
+        $nameWordCount = str($user->username)->wordCount() > 1 ? 2 : 1;
 
         // TODO: define the view route according to frontend inside views/
-        return view('user.profile', compact('user', 'nameWordCount'));
+        return view('users.index', compact('user', 'nameWordCount'));
     }
 
     /**
@@ -71,7 +71,7 @@ class UserController extends Controller
      */
     public function update(Request $request, string $user_id)
     {
-        $user = User::where('user_id', $user_id);
+        $user = User::where('user_id', $user_id)->firstOrFail();
 
         // Validate the user who edit is the user themselves
         if ($user->getKey() !== Auth::id()) {
@@ -98,8 +98,10 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $user_id)
     {
-        //
+        $user = user::findOrFail($user_id);
+        $user->delete();
+        return redirect()->route('users.index');
     }
 }
