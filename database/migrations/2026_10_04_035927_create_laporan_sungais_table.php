@@ -35,12 +35,6 @@ return new class extends Migration
                 'Tercemar',
             ]);
 
-            $table->enum('persetujuan', [
-                'disetujui',
-                'menunggu',
-                'ditolak',
-            ])->default('menunggu');
-
             $table->timestamps();
 
             /*
