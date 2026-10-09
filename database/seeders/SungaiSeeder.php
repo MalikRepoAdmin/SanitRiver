@@ -32,9 +32,9 @@ class SungaiSeeder extends Seeder
      *
      * Put the large HDX GeoJSON in database/seeders/data/.
      */
-    private const GEOJSON_FILE = 'database/seeders/data/idn_waterways_lines.geojson';
+    private const GEOJSON_FILE = 'database/seeders/data/idn_waterways_points.geojson';
     
-    private const MAX_INSERT_LIMIT = 100000;
+    private const MAX_INSERT_LIMIT = 1000000;
 
     public function run(): void
     {
@@ -87,8 +87,10 @@ class SungaiSeeder extends Seeder
             foreach ($features as $feature) {
             	// IMMEDIATELY EXIT LOOP & STOP READING FILE WHEN LIMIT IS REACHED
                 if ($insertedCount >= self::MAX_INSERT_LIMIT) {
-                    $this->command?->info("Reached limit of " . self::MAX_INSERT_LIMIT . " inserted rows. Stopping.");
-                    break;
+                    if (self::MAX_INSERT_LIMIT != 0) {
+                        $this->command?->info("Reached limit of " . self::MAX_INSERT_LIMIT . " inserted rows. Stopping.");
+                        break;
+                    }
                 }
             
                 $processedCount++;
@@ -114,18 +116,18 @@ class SungaiSeeder extends Seeder
                 }
 
                 $namaSungai = $this->getStringValue($properties, 'name')
-		    ?? $this->getStringValue($properties, 'name:id')
-		    ?? $this->getStringValue($properties, 'name:en');
+                    ?? $this->getStringValue($properties, 'name:id')
+                    ?? $this->getStringValue($properties, 'name:en');
 
                 /*
                  * A river without a name is not useful for the current
                  * application because users need to identify the river.
                  */
-                //if ($namaSungai === null) {
-                //    $skippedCount++;
+                if ($namaSungai === null) {
+                   $skippedCount++;
 
-                //    continue;
-                //}
+                   continue;
+                }
 
                 $geometryType = $geometry['type'] ?? null;
                 $coordinates = $geometry['coordinates'] ?? null;
@@ -137,17 +139,14 @@ class SungaiSeeder extends Seeder
                 }
 
                 /*
-                 * The database column is MULTILINESTRING.
+                 * The database column is POINT.
                  *
-                 * OSM/HDX data can contain either:
+                 * OSM/HDX data can contain:
                  *
-                 *   LineString
-                 *   MultiLineString
-                 *
-                 * A LineString is therefore normalized into a
-                 * MultiLineString before being inserted.
+                 *   Point
+                 *   
                  */
-                $wkt = $this->geoJsonToMultiLineStringWkt(
+                $wkt = $this->geoJsonToPointWkt(
                     $geometryType,
                     $coordinates
                 );
@@ -331,150 +330,51 @@ class SungaiSeeder extends Seeder
     }
 
     /**
-     * Convert a GeoJSON LineString or MultiLineString into WKT
-     * MultiLineString format.
-     *
-     * Examples:
-     *
-     * LineString:
-     * [
-     *     [111.1, -7.1],
-     *     [111.2, -7.2]
-     * ]
-     *
-     * becomes:
-     *
-     * MULTILINESTRING((111.1 -7.1,111.2 -7.2))
-     *
-     * MultiLineString:
-     * [
-     *     [
-     *         [111.1, -7.1],
-     *         [111.2, -7.2]
-     *     ],
-     *     [
-     *         [111.3, -7.3],
-     *         [111.4, -7.4]
-     *     ]
-     * ]
-     *
-     * becomes:
-     *
-     * MULTILINESTRING(
-     *     (111.1 -7.1,111.2 -7.2),
-     *     (111.3 -7.3,111.4 -7.4)
-     * )
+     * Convert GeoJSON into WKT (Well-Known Text)
      */
-    private function geoJsonToMultiLineStringWkt(
+    private function geoJsonToPointWkt(
         mixed $geometryType,
         mixed $coordinates
     ): ?string {
+        if ($geometryType !== 'Point') {
+            return null;
+        }
+
         if (
-            $geometryType !== 'LineString' &&
-            $geometryType !== 'MultiLineString'
+            ! is_array($coordinates) ||
+            count($coordinates) < 2
         ) {
             return null;
         }
 
-        if (! is_array($coordinates)) {
+        $longitude = $coordinates[0];
+        $latitude = $coordinates[1];
+
+        if (
+            ! is_numeric($longitude) ||
+            ! is_numeric($latitude)
+        ) {
             return null;
         }
 
-        /*
-         * Normalize LineString:
-         *
-         * LineString coordinates:
-         * [
-         *     [x, y],
-         *     [x, y]
-         * ]
-         *
-         * into:
-         *
-         * [
-         *     [
-         *         [x, y],
-         *         [x, y]
-         *     ]
-         * ]
-         */
-        if ($geometryType === 'LineString') {
-            $coordinates = [$coordinates];
-        }
+        $longitude = (float) $longitude;
+        $latitude = (float) $latitude;
 
-        $lines = [];
-
-        foreach ($coordinates as $line) {
-            if (! is_array($line) || count($line) < 2) {
-                continue;
-            }
-
-            $points = [];
-
-            foreach ($line as $point) {
-                if (! is_array($point) || count($point) < 2) {
-                    return null;
-                }
-
-                $longitude = $point[0];
-                $latitude = $point[1];
-
-                /*
-                 * GeoJSON coordinates are expected to be numeric.
-                 *
-                 * Reject invalid values rather than allowing malformed
-                 * WKT to reach MariaDB.
-                 */
-                if (
-                    ! is_numeric($longitude) ||
-                    ! is_numeric($latitude)
-                ) {
-                    return null;
-                }
-
-                $longitude = (float) $longitude;
-                $latitude = (float) $latitude;
-
-                /*
-                 * WGS84 longitude/latitude validation.
-                 */
-                if (
-                    ! is_finite($longitude) ||
-                    ! is_finite($latitude) ||
-                    $longitude < -180 ||
-                    $longitude > 180 ||
-                    $latitude < -90 ||
-                    $latitude > 90
-                ) {
-                    return null;
-                }
-
-                /*
-                 * GeoJSON uses:
-                 *
-                 * [longitude, latitude]
-                 *
-                 * WKT uses:
-                 *
-                 * longitude latitude
-                 */
-                $points[] = $this->formatCoordinate($longitude)
-                    . ' '
-                    . $this->formatCoordinate($latitude);
-            }
-
-            if (count($points) < 2) {
-                continue;
-            }
-
-            $lines[] = '(' . implode(',', $points) . ')';
-        }
-
-        if ($lines === []) {
+        if (
+            ! is_finite($longitude) ||
+            ! is_finite($latitude) ||
+            $longitude < -180 ||
+            $longitude > 180 ||
+            $latitude < -90 ||
+            $latitude > 90
+        ) {
             return null;
         }
 
-        return 'MULTILINESTRING(' . implode(',', $lines) . ')';
+        return 'POINT(' .
+            $this->formatCoordinate($longitude) . ' ' .
+            $this->formatCoordinate($latitude) .
+            ')';
     }
 
     /**

@@ -13,9 +13,9 @@ class SungaiController extends Controller
      */
     public function index()
     {
-        $items = Sungai::with(['gambarSungais', 'laporanSungais'])->get();
+        $sungais = Sungai::with(['gambarSungais', 'laporanSungais'])->get();
 
-        return response()->json($items);
+        return view('dashboard.user_dashboard', compact('sungais'));
     }
 
     /**

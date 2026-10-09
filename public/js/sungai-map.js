@@ -14,26 +14,37 @@ document.addEventListener('DOMContentLoaded', function () {
         attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
-    // 4. Buat Layer Spasial untuk menampung garis sungai
+    // 4. Buat Layer Spasial untuk menampung garis/titik sungai
+    // const sungaiLayer = L.geoJSON(null, {
+    //     style: function (feature) {
+    //         let warnaGaris = "#FF00FF";
+    //         let tebalGaris = 4;
+
+    //         if (feature.properties.tipe === 'canal') {
+    //             warnaGaris = "#00FFFF";
+    //             tebalGaris = 3;
+    //         } else if (feature.properties.tipe === 'stream') {
+    //             warnaGaris = "#FFFF00";
+    //             tebalGaris = 2.5;
+    //         }
+
+    //         return { color: warnaGaris, weight: tebalGaris, opacity: 1.0 };
+    //     },
+
     const sungaiLayer = L.geoJSON(null, {
-        style: function (feature) {
-            let warnaGaris = "#FF00FF";
-            let tebalGaris = 4;
+        pointToLayer: function (feature, latlng) {
+            const hasName = Boolean(feature.properties.nama);
 
-            if (feature.properties.tipe === 'canal') {
-                warnaGaris = "#00FFFF";
-                tebalGaris = 3;
-            } else if (feature.properties.tipe === 'stream') {
-                warnaGaris = "#FFFF00";
-                tebalGaris = 2.5;
-            }
-
-            return { color: warnaGaris, weight: tebalGaris, opacity: 1.0 };
+            return L.circleMarker(latlng, {
+                radius: hasName ? 7 : 4,
+                opacity: 1,
+                fillOpacity: hasName ? 0.9 : 0.4
+            });
         },
         onEachFeature: function (feature, layer) {
             if (feature.properties) {
                 const id = feature.properties.id;
-                const nama = feature.properties.nama || 'Tanpa Nama';
+                const nama = feature.properties.nama || 'Aliran tidak Bernama';
                 const alamat = feature.properties.alamat || 'Tidak ada info wilayah';
                 const status = feature.properties.status || 'Belum Terlapor';
                 const tipe = feature.properties.tipe || 'river';
