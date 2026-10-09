@@ -36,7 +36,7 @@ return new class extends Migration
              */
             $table->geometry(
                 'geometri',
-                subtype: 'multilinestring',
+                subtype: 'point',
                 srid: 4326
             )->nullable();
 

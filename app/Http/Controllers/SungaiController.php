@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Sungai;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SungaiController extends Controller
 {
@@ -12,7 +13,9 @@ class SungaiController extends Controller
      */
     public function index()
     {
-        //
+        $sungais = Sungai::with(['gambarSungais', 'laporanSungais'])->get();
+
+        return view('dashboard.user_dashboard', compact('sungais'));
     }
 
     /**
@@ -20,7 +23,7 @@ class SungaiController extends Controller
      */
     public function create()
     {
-        //
+        return response()->json(['message' => 'Display create form for Sungai']);
     }
 
     /**
@@ -28,7 +31,17 @@ class SungaiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'nama_sungai' => 'required|string',
+            'alamat' => 'nullable|string',
+            'status' => 'nullable|string',
+            'tipe_sungai' => 'nullable|string',
+            'geometri' => 'nullable',
+        ]);
+
+        $sungai = Sungai::create($data);
+
+        return response()->json($sungai, 201);
     }
 
     /**
@@ -36,7 +49,9 @@ class SungaiController extends Controller
      */
     public function show(Sungai $sungai)
     {
-        //
+        $sungai->load(['gambarSungais', 'laporanSungais']);
+
+        return response()->json($sungai);
     }
 
     /**
@@ -44,7 +59,7 @@ class SungaiController extends Controller
      */
     public function edit(Sungai $sungai)
     {
-        //
+        return response()->json(['message' => 'Display edit form', 'data' => $sungai]);
     }
 
     /**
@@ -52,7 +67,17 @@ class SungaiController extends Controller
      */
     public function update(Request $request, Sungai $sungai)
     {
-        //
+        $data = $request->validate([
+            'nama_sungai' => 'nullable|string',
+            'alamat' => 'nullable|string',
+            'status' => 'nullable|string',
+            'tipe_sungai' => 'nullable|string',
+            'geometri' => 'nullable',
+        ]);
+
+        $sungai->update($data);
+
+        return response()->json($sungai);
     }
 
     /**
@@ -60,6 +85,16 @@ class SungaiController extends Controller
      */
     public function destroy(Sungai $sungai)
     {
-        //
+        // Optionally delete associated images
+        foreach ($sungai->gambarSungais as $g) {
+            if ($g->file_path) {
+                Storage::disk('public')->delete($g->file_path);
+            }
+            $g->delete();
+        }
+
+        $sungai->delete();
+
+        return response()->json(['message' => 'Deleted']);
     }
 }

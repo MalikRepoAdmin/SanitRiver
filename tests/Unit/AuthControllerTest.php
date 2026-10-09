@@ -38,7 +38,7 @@ class AuthControllerTest extends TestCase
             'nama_lengkap' => 'Full Name',
             'tgl_lahir' => '2000-01-01',
         ]);
-        $req->setLaravelSession(session());
+        $req->setLaravelSession(session()->driver());
 
         $res = $ctl->registerUser($req);
         $this->assertInstanceOf(RedirectResponse::class, $res);
@@ -50,7 +50,7 @@ class AuthControllerTest extends TestCase
             'password' => 'secret123',
             'password_confirmation' => 'secret123',
         ]);
-        $req2->setLaravelSession(session());
+        $req2->setLaravelSession(session()->driver());
 
         $res2 = $ctl->registerAdmin($req2);
         $this->assertInstanceOf(RedirectResponse::class, $res2);
@@ -73,13 +73,13 @@ class AuthControllerTest extends TestCase
             'login' => 'loginuser',
             'password' => 'password',
         ]);
-        $req->setLaravelSession(session());
+        $req->setLaravelSession(session()->driver());
 
         $res = $ctl->loginUser($req);
         $this->assertInstanceOf(RedirectResponse::class, $res);
 
         $logoutReq = Request::create('/', 'POST');
-        $logoutReq->setLaravelSession(session());
+        $logoutReq->setLaravelSession(session()->driver());
         $res2 = $ctl->logoutUser($logoutReq);
         $this->assertInstanceOf(RedirectResponse::class, $res2);
     }

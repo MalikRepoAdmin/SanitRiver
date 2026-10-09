@@ -13,6 +13,8 @@ class GambarSungai extends Model
 
     protected $fillable = [
         'file_path',
+        'imageable_id',
+        'imageable_type',
     ];
 
     /**

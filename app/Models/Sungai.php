@@ -22,9 +22,25 @@ class Sungai extends Model
     ];
 
     /**
+     * Scope to get geometry in GeoJSON text format.
+     */
+    public function scopeWithGeoJson($query)
+    {
+        return $query->select(
+            'sungai_id',
+            'nama_sungai',
+            'alamat',
+            'status',
+            'tipe_sungai'
+        )->selectRaw(
+            'ST_AsGeoJSON(geometri) AS geojson_string'
+        );
+    }
+
+    /**
      * Relationships
      */
-    
+
     // Administrators assigned to manage this river.
     public function admins(): BelongsToMany
     {
