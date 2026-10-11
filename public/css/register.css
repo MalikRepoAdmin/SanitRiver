@@ -1,0 +1,169 @@
+        :root {
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: #182238;
+            background: #f8fafc;
+            font-synthesis: none;
+            text-rendering: optimizeLegibility;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            min-width: 320px;
+            min-height: 100vh;
+            margin: 0;
+            display: grid;
+            place-items: center;
+            padding: 20px;
+            background: radial-gradient(ellipse at center, #fff 0%, #f8fafc 72%);
+        }
+
+        main {
+            width: min(100%, 888px);
+            padding: 56px 50px 40px;
+            border: 1px solid #eef0f4;
+            border-radius: 16px;
+            background: #fff;
+            box-shadow: 0 18px 34px rgb(15 23 42 / 12%), 0 4px 10px rgb(15 23 42 / 6%);
+        }
+
+        header { display: grid; justify-items: center; margin-bottom: 29px; }
+
+        .brand-logo {
+            width: 52px;
+            height: 52px;
+            margin-bottom: 14px;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+
+        h1 { margin: 0; text-align: center; font-size: 24px; letter-spacing: -0.04em; }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-areas:
+                "name work"
+                "username domisili"
+                "email tgl-lahir"
+                "password bio";
+            column-gap: 35px;
+            row-gap: 17px;
+        }
+
+        .field { min-width: 0; }
+        .name-field { grid-area: name; }
+        .work-field { grid-area: work; }
+        .username-field { grid-area: username; }
+        .domisili-field { grid-area: domisili; }
+        .tgl-lahir-field { grid-area: tgl-lahir; }
+        .email-field { grid-area: email; }
+        .bio-field { grid-area: bio; }
+        .password-field { grid-area: password; }
+        label { display: block; margin-bottom: 7px; font-size: 14px; font-weight: 500; }
+
+        .input-wrap { position: relative; display: flex; align-items: center; }
+        .bio-field .input-wrap { align-items: flex-start; }
+
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            width: 19px;
+            height: 19px;
+            color: #718078;
+            pointer-events: none;
+        }
+
+        .bio-field .input-icon { top: 13px; }
+
+        input, textarea {
+            width: 100%;
+            border: 1px solid transparent;
+            border-radius: 9px;
+            outline: none;
+            background: #f0f1ff;
+            color: #182238;
+            font: inherit;
+            font-size: 14px;
+            transition: border-color 150ms ease, box-shadow 150ms ease;
+        }
+
+        input { height: 43px; padding: 0 43px; }
+        textarea { min-height: 129px; padding: 12px 13px 12px 43px; resize: vertical; }
+        input::placeholder, textarea::placeholder { color: #77817f; opacity: 1; }
+        input:focus, textarea:focus { border-color: #007568; box-shadow: 0 0 0 3px rgb(0 117 104 / 13%); }
+
+        .toggle-password {
+            position: absolute;
+            right: 9px;
+            display: grid;
+            width: 30px;
+            height: 30px;
+            place-items: center;
+            padding: 0;
+            border: 0;
+            border-radius: 6px;
+            background: transparent;
+            color: #718078;
+            cursor: pointer;
+        }
+
+        .toggle-password:hover { color: #006c61; }
+        .toggle-password:focus-visible { outline: 2px solid #007568; outline-offset: 1px; }
+        .toggle-password svg { width: 19px; height: 19px; }
+
+        .error { margin: 6px 0 0; color: #b42318; font-size: 13px; line-height: 1.4; }
+        .alert { margin: 0 0 18px; padding: 10px 12px; border: 1px solid #fecaca; border-radius: 8px; background: #fef2f2; color: #b42318; font-size: 13px; }
+        .confirmation-field { margin-top: 13px; }
+
+        .actions { display: grid; justify-items: center; margin-top: 37px; }
+
+        .submit {
+            display: flex;
+            width: min(100%, 368px);
+            min-height: 45px;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            border: 0;
+            border-radius: 9px;
+            background: #007568;
+            box-shadow: 0 3px 6px rgb(15 23 42 / 17%);
+            color: #fff;
+            cursor: pointer;
+            font: inherit;
+            font-size: 14px;
+            font-weight: 700;
+            transition: background 150ms ease, transform 150ms ease;
+        }
+
+        .submit:hover { background: #00665b; }
+        .submit:active { transform: translateY(1px); }
+        .submit:focus-visible { outline: 3px solid rgb(0 117 104 / 30%); outline-offset: 3px; }
+        .submit svg { width: 16px; height: 16px; }
+        .footer { margin: 32px 0 0; color: #465451; text-align: center; font-size: 14px; line-height: 1.7; }
+        a { display: inline-flex; align-items: center; gap: 4px; color: #007568; font-weight: 700; text-decoration: none; }
+        a:hover { color: #005c52; text-decoration: underline; }
+        a:focus-visible { outline: 2px solid #007568; outline-offset: 3px; }
+        a svg { width: 15px; height: 15px; }
+
+        @media (max-width: 640px) {
+            body { padding: 16px; }
+            main { padding: 38px 24px 32px; }
+            header { margin-bottom: 24px; }
+            .form-grid {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "name"
+                    "username"
+                    "email"
+                    "work"
+                    "domisili"
+                    "tgl-lahir"
+                    "bio"
+                    "password";
+                row-gap: 15px;
+            }
+            .actions { margin-top: 26px; }
+            .footer { margin-top: 25px; }
+        }

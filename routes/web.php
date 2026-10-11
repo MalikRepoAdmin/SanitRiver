@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\SungaiApiController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SungaiController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -13,9 +14,11 @@ Route::get('/beranda', function () {
     return view('welcome');
 })->name('beranda');
 
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login');
+Route::get('/login', [AuthController::class, 'showLoginUser'])->name('login');
+Route::post('/login', [AuthController::class, 'loginUser'])->name('login.authenticate');
+
+Route::get('/register', [AuthController::class, 'showRegisterUser'])->name('register');
+Route::post('/register', [AuthController::class, 'registerUser'])->name('register.store');
 
 Route::get('/user/{user_id}', function ($user_id) {
     return "User profile {$user_id}";

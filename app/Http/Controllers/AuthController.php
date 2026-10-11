@@ -14,7 +14,7 @@ class AuthController extends Controller
      */
     public function showRegisterUser()
     {
-        return view('users.index');
+        return view('login-register.register');
     }
 
     /**
@@ -30,43 +30,25 @@ class AuthController extends Controller
      */
     public function registerUser(Request $request)
     {
-        $request->validate([
-            'email' => 'required|email|unique:users', // email must be unique, 'users' is the table name
-            'username' => 'required|max:255|unique:admins',
-
-            // 'confirmed' option is required so user can confirm their password to ensure they remember their password
-            // TODO: 'confirmed' option needs 'password_confirmation' on frontend. for example <input type="password" name="password_confirmation">
-            'password' => 'required|min:6|confirmed', 
+        $validated = $request->validate([
+            'email' => 'required|email|max:255|unique:users',
+            'username' => 'required|string|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
             'nama_lengkap' => 'required|max:255',
-            'tgl_lahir' => 'required',
-
-            'bio' => 'sometimes|nullable',
-            'pekerjaan' => 'sometimes|nullable|max:255',
-            'domisili' => 'sometimes|nullable',
+            'tgl_lahir' => 'nullable|date',
+            'bio' => 'nullable|string',
+            'pekerjaan' => 'nullable|string|max:255',
+            'domisili' => 'nullable|string',
         ], [
-            // Error response
             'email.unique' => 'Email ini sudah terdaftar, silahkan gunakan email lain.',
             'username.unique' => 'Username ini sudah terdaftar, silahkan gunakan username lain',
             'password.confirmed' => 'Konfirmasi password tidak cocok.',
             'required' => 'Kolom ini wajib diisi dan tidak boleh kosong.',
-            'nama_lengkap.max:255' => 'Nama lengkap Maksimal 255 karakter',
-            'pekerjaan.max:255' => 'Pekerjaan Maksimal 255 karakter',
+            'nama_lengkap.max' => 'Nama lengkap maksimal 255 karakter.',
+            'pekerjaan.max' => 'Pekerjaan maksimal 255 karakter.',
         ]);
 
-        // Store  the user to database
-        $user = User::create([
-            // Mandatory
-            'email' => $request->email,
-            'username' => $request->username,
-            'password' => $request->password,
-            'nama_lengkap' => $request->nama_lengkap,
-            'tgl_lahir' => $request->tgl_lahir,
-
-            // Optional
-            'bio' => $request->whenFilled('bio', fn($value) => $value),
-            'pekerjaan' => $request->whenFilled('pekerjaan', fn($value) => $value),
-            'domisili' => $request->whenFilled('domisili', fn($value) => $value),
-        ]);
+        $user = User::create($validated);
 
         // Automatically call login method after successfully register
         Auth::login($user);
@@ -116,7 +98,7 @@ class AuthController extends Controller
      */
     public function showLoginUser()
     {
-        return view('users.index');
+        return view('login-register.login');
     }
 
     /**
