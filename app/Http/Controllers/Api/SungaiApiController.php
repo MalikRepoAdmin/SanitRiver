@@ -52,18 +52,4 @@ class SungaiApiController extends Controller
             'features' => $features,
         ]);
     }
-
-    // public function getWaterways(Request $request)
-    // {
-    //     $sungai = Sungai::withGeoJson()
-    //         ->whereNotNull('geometri')
-    //         ->first();
-
-    //     dd([
-    //         'raw' => $sungai->geojson_string,
-    //         'type' => gettype($sungai->geojson_string),
-    //         'decoded' => json_decode($sungai->geojson_string),
-    //         'error' => json_last_error_msg(),
-    //     ]);
-    // }
 }
