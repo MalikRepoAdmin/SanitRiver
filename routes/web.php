@@ -31,6 +31,7 @@ Route::resource('users', UserController::class);
 /**
  * Sungai Map Routes
  */
+Route::get('/sungai-map', [SungaiController::class, 'map'])->name('sungai.map');
 // Route to display Blade page where map placed
 Route::get('/user-dashboard', [SungaiController::class, 'index'])->name('user.dashboard');
 
