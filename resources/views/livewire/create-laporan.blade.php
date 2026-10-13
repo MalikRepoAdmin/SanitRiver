@@ -4,7 +4,7 @@
             
             <h3 class="fw-bold mb-5" style="color: #00685F;">Form Laporan Sungai</h3>
 
-            <form action="#" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('sungai.laporan.create', ['id' => request()->route('id')]) }}" method="POST">
                 @csrf
                 
                 <div class="mb-4 pb-2">
