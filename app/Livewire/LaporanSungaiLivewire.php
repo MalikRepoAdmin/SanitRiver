@@ -3,70 +3,59 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use Livewire\WithPagination;
 use App\Models\LaporanSungai;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Validator;
 use Livewire\Attributes\Layout;
 
 #[Layout('components.layouts.app')]
 class LaporanSungaiLivewire extends Component
 {
-    /**
-     * Properties
-     */
-    public Collection $laporansungais;
+    use WithPagination;
 
-    
+    public string $search  = '';
+    public string $wilayah = 'dki';
+    public string $urutan  = 'terbaru';
+    public string $status  = 'semua';
+
+    protected $queryString = [
+        'search'  => ['except' => ''],
+        'wilayah' => ['except' => 'dki'],
+        'urutan'  => ['except' => 'terbaru'],
+        'status'  => ['except' => 'semua'],
+    ];
+
+    public function updatingSearch()  { $this->resetPage(); }
+    public function updatingWilayah() { $this->resetPage(); }
+    public function updatingUrutan()  { $this->resetPage(); }
+    public function updatingStatus()  { $this->resetPage(); }
+
     public function render()
     {
-        return view('livewire.laporan-sungai');
-    }
+        $query = LaporanSungai::with(['user', 'sungai', 'gambarSungais']);
 
-    public function index()
-    {
-        return LaporanSungai::with(['user', 'sungai', 'gambarSungais'])->get();
-    }
+        // Filter status
+        if ($this->status !== 'semua') {
+            $query->where('status', 'like', '%' . $this->status . '%');
+        }
 
-    public function store(array $data)
-    {
-        $v = Validator::make($data, [
-            'user_id' => 'required|exists:users,user_id',
-            'sungai_id' => 'required|exists:sungais,sungai_id',
-            'status' => 'nullable|string',
+        // Search nama / alamat sungai
+        if ($this->search) {
+            $query->whereHas('sungai', function ($q) {
+                $q->where('nama_sungai', 'like', '%' . $this->search . '%')
+                  ->orWhere('alamat', 'like', '%' . $this->search . '%');
+            });
+        }
+
+        // Urutan
+        match ($this->urutan) {
+            'terlama' => $query->oldest(),
+            'populer' => $query->withCount('gambarSungais')
+                              ->orderByDesc('gambar_sungais_count'),
+            default   => $query->latest(),
+        };
+
+        return view('livewire.laporan-sungai', [
+            'laporansungais' => $query->paginate(6),
         ]);
-
-        $v->validate();
-
-        return LaporanSungai::create($data);
-    }
-
-    public function show($id)
-    {
-        return LaporanSungai::with(['user', 'sungai', 'gambarSungais'])->findOrFail($id);
-    }
-
-    public function update($id, array $data)
-    {
-        $laporan = LaporanSungai::findOrFail($id);
-
-        $v = Validator::make($data, [
-            'user_id' => 'nullable|exists:users,user_id',
-            'sungai_id' => 'nullable|exists:sungais,sungai_id',
-            'status' => 'nullable|string',
-        ]);
-
-        $v->validate();
-
-        $laporan->update($data);
-
-        return $laporan;
-    }
-
-    public function destroy($id)
-    {
-        $laporan = LaporanSungai::findOrFail($id);
-        $laporan->delete();
-
-        return ['message' => 'Deleted'];
     }
 }

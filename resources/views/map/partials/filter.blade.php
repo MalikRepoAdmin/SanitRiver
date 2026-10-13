@@ -10,7 +10,7 @@
         <input type="text" placeholder="Cari nama atau lokasi sungai..." id="searchInput">
     </div>
 
-    {{-- Wilayah --}}
+    <!-- {{-- Wilayah --}}
     <div class="filter-item">
         <select id="filterWilayah">
             <option value="dki">DKI Jakarta</option>
@@ -43,6 +43,6 @@
         <button class="status-btn" data-status="tercemar">
             <span class="dot dot-tercemar"></span> Tercemar
         </button>
-    </div>
+    </div> -->
 
 </div>

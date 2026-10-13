@@ -1,47 +1,51 @@
-<?php
+    <?php
 
-use App\Http\Controllers\Api\SungaiApiController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\LaporanSungaiController;
-use App\Http\Controllers\SungaiController;
-use App\Http\Controllers\UserController;
-use App\Livewire\CreateLaporanLivewire;
-use App\Livewire\DashboardLivewire;
-use App\Livewire\SungaiMapLivewire;
-use Illuminate\Support\Facades\Route;
+    use App\Http\Controllers\Api\SungaiApiController;
+    use App\Http\Controllers\AuthController;
+    use App\Http\Controllers\LaporanSungaiController;
+    use App\Http\Controllers\SungaiController;
+    use App\Http\Controllers\UserController;
+    use App\Livewire\CreateLaporanLivewire;
+    use App\Livewire\DashboardLivewire;
+    use Illuminate\Support\Facades\Route;
 
-/**
- * Auth Routes
- */
-Route::post('/login', [AuthController::class, 'loginUser'])->name('login');
-Route::post('/logout', [AuthController::class, 'logoutUser'])->name('logout');
 
-/**
- * Livewire Views Routes
- */
-// Auth Mandatory
-Route::middleware(['auth'])->group(function () {
-    Route::get('/create-laporan', CreateLaporanLivewire::class)->name('sungai.laporan.create');
-});
+    /**
+     * Public Routes
+     */
+    Route::get('/', fn() => redirect()->route('beranda'))->name('home');
+    Route::get('/beranda', DashboardLivewire::class)->name('beranda');
 
-// Auth not Mandatory
-Route::get('/', function(){
-    return view('welcome');
-});
-Route::get('/sungai/map', function(){
-    return view('map.map');
-});
-Route::get('/beranda', DashboardLivewire::class)->name('beranda');
-Route::get('/sungai-map', SungaiMapLivewire::class)->name('sungai.map');
-Route::get('/laporan-sungai', SungaiMapLivewire::class)->name('sungai.laporan');
-Route::get('/create-laporan', CreateLaporanLivewire::class)->name('sungai.laporan.create');
+    /**
+     * Auth Routes
+     */
+    Route::post('/login', [AuthController::class, 'loginUser'])->name('login');
+    Route::post('/logout', [AuthController::class, 'logoutUser'])->name('logout');
+    /**
+     * Peta Sungai
+     */
+    Route::get('/sungai-map', [SungaiController::class, 'map'])->name('sungai.map');
+    Route::get('/sungai/{id}', [SungaiController::class, 'show'])->name('sungai.show');
 
-/**
- * Sungai Map Routes
- */
-Route::get('/sungai-map', [SungaiController::class, 'map'])->name('sungai.map');
-// Route to display Blade page where map placed
-Route::get('/user-dashboard', [SungaiController::class, 'index'])->name('user.dashboard');
+    /**
+     * Laporan Sungai
+     */
+    Route::get('/laporan-sungai', \App\Livewire\LaporanSungaiLivewire::class)->name('sungai.laporan');
 
-// Rute halaman detail saat popup sungai diklik (Opsional)
-Route::get('/sungai/{id}', [SungaiController::class, 'show'])->name('sungai.show');
+    /**
+     * API
+     */
+    Route::get('/api/sungai-bbox', [SungaiApiController::class, 'getWaterways'])->name('api.sungai.bbox');
+
+    /**
+     * Auth Mandatory
+     */
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/create-laporan', CreateLaporanLivewire::class)->name('sungai.laporan.create');
+        Route::get('/user-dashboard', [SungaiController::class, 'index'])->name('user.dashboard');
+    });
+
+    /**
+     * User Resource
+     */
+    Route::resource('users', UserController::class);

@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="{{ asset('css/base.css') }}">
     <link rel="stylesheet" href="{{ asset('css/layout.css') }}">
     <link rel="stylesheet" href="{{ asset('css/index-style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/map-style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/laporan-style.css') }}">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
     <!-- CSS -->
