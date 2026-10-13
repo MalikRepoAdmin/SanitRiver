@@ -1,14 +1,13 @@
-<?php
+    <?php
 
-use App\Http\Controllers\Api\SungaiApiController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\LaporanSungaiController;
-use App\Http\Controllers\SungaiController;
-use App\Http\Controllers\UserController;
-use App\Livewire\CreateLaporanLivewire;
-use App\Livewire\DashboardLivewire;
-use App\Livewire\SungaiMapLivewire;
-use Illuminate\Support\Facades\Route;
+    use App\Http\Controllers\Api\SungaiApiController;
+    use App\Http\Controllers\AuthController;
+    use App\Http\Controllers\LaporanSungaiController;
+    use App\Http\Controllers\SungaiController;
+    use App\Http\Controllers\UserController;
+    use App\Livewire\CreateLaporanLivewire;
+    use App\Livewire\DashboardLivewire;
+    use Illuminate\Support\Facades\Route;
 
 /**
  * Auth Routes
