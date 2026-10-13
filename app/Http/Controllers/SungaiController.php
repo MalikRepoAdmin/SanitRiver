@@ -97,4 +97,11 @@ class SungaiController extends Controller
 
         return response()->json(['message' => 'Deleted']);
     }
+
+    /**
+     * Display the map view for Sungai.
+     */
+    public function map(){
+        return view('map.map');
+    }
 }

@@ -20,8 +20,8 @@ body {
 }
 
 #btn-navbar .btn:hover {
-    background-color: #004d46; 
-    color: white;
+    transition: transform 0.1s ease-in-out;
+    transform: scale(1.05);
 }
 
 #btn-beranda .btn {
@@ -34,4 +34,29 @@ body {
 
 #btn-beranda {
     width: 100%;
+}
+
+#btn-masuk {
+        color: #00685F;
+        border: 1px solid #00685F;
+        border-radius: 8px;
+        font-weight: 500;
+        transition: transform 0.1s ease-in-out;
+    }
+    
+#btn-masuk:hover {
+    transform: scale(1.05);
+}
+
+#btn-daftar {
+    background-color: #00685F;
+    color: white;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: transform 0.1s ease-in-out;
+}
+
+#btn-daftar:hover {
+    transform: scale(1.05);
+    color: white;
 }
