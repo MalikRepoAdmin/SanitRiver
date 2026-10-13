@@ -6,6 +6,8 @@
     use App\Http\Controllers\SungaiController;
     use App\Http\Controllers\UserController;
     use App\Livewire\CreateLaporanLivewire;
+    use App\Livewire\LaporanSungaiLivewire;
+    use App\Livewire\SungaiMapLivewire;
     use App\Livewire\DashboardLivewire;
     use Illuminate\Support\Facades\Route;
 
@@ -45,7 +47,7 @@ Route::get('/sungai/map', function(){
 });
 Route::get('/beranda', DashboardLivewire::class)->name('beranda');
 Route::get('/sungai-map', SungaiMapLivewire::class)->name('sungai.map');
-Route::get('/laporan-sungai', SungaiMapLivewire::class)->name('sungai.laporan');
+Route::get('/laporan-sungai', LaporanSungaiLivewire::class)->name('sungai.laporan');
 Route::get('/sungai/{id}/laporan', CreateLaporanLivewire::class)->name('sungai.laporan.create');
 
 /**
