@@ -32,7 +32,7 @@ class SungaiApiController extends Controller
             ->limit(400) // Batasan aman render per gerakan layar
             ->get();
 
-        // 5. Mapping data sesuai nama kolom properti Model Anda
+        // 5. Mapping data sesuai nama kolom properti Model
         $features = $sungais->map(function ($sungai) {
             return [
                 'type' => 'Feature',

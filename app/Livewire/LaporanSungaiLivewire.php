@@ -6,7 +6,9 @@ use Livewire\Component;
 use App\Models\LaporanSungai;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Validator;
+use Livewire\Attributes\Layout;
 
+#[Layout('components.layouts.app')]
 class LaporanSungaiLivewire extends Component
 {
     /**
