@@ -40,16 +40,13 @@ document.addEventListener('DOMContentLoaded', function () {
                         <p><b>Wilayah:</b> ${alamat}</p>
                         <p><b>Status:</b> ${status}</p>
                         <hr style="margin: 8px 0; border: 0; border-top: 1px solid #ddd;">
-                        <a href="/sungai/${id}" style="color: #007bff; text-decoration: none; font-weight: bold; font-size: 12px;">
-                            🔍 Lihat Laporan & Galeri Foto →
-                        </a>
                     </div>
                 `;
                 layer.bindPopup(htmlPopup);
 
                 // TAMBAHKAN EVENT LISTENER KLIK DI SINI
                 layer.on('click', function () {
-                    // Cek apakah elemen ada sebelum mengubah isinya untuk menghindari error
+                    // 1. Update Teks di Sidebar
                     const elNama = document.getElementById('sungai-nama');
                     const elTipe = document.getElementById('sungai-tipe');
                     const elAlamat = document.getElementById('sungai-alamat');
@@ -59,6 +56,22 @@ document.addEventListener('DOMContentLoaded', function () {
                     if(elTipe) elTipe.textContent = tipe.toUpperCase();
                     if(elAlamat) elAlamat.textContent = alamat;
                     if(elStatus) elStatus.textContent = status;
+
+                    // 2. Update URL Tombol dengan Route Dinamis
+                    const btnLapor = document.getElementById('tombol-lapor');
+                    if (btnLapor) {
+                        // Simpan template URL asli (yang ada __ID__ nya) ke dalam atribut data sementara
+                        // Hal ini penting agar jika marker di-klik berkali-kali, URL template tidak hilang
+                        if (!btnLapor.dataset.urlTemplate) {
+                            btnLapor.dataset.urlTemplate = btnLapor.getAttribute('href');
+                        }
+
+                        // Ambil template, lalu ganti kata id Placeholder dengan id sebenarnya
+                        const urlBaru = btnLapor.dataset.urlTemplate.replace('__ID__', id);
+                        
+                        // Setel URL yang sudah valid ke href tombol
+                        btnLapor.setAttribute('href', urlBaru);
+                    }
                 });
             }
         }

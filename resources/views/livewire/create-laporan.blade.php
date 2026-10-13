@@ -8,11 +8,11 @@
                 @csrf
                 
                 <div class="mb-4 pb-2">
-                    <input type="text" class="form-control border-0 border-bottom rounded-0 shadow-none px-0" name="nama_sungai" placeholder="Nama Sungai" style="color: #6b7280; border-bottom: 1.5px solid #9ca3af !important; font-size: 15px; background-color: transparent;" required>
+                    <input type="text" class="form-control border-0 border-bottom rounded-0 shadow-none px-0" name="nama_sungai" placeholder="Nama Sungai" style="color: #6b7280; border-bottom: 1.5px solid #9ca3af !important; font-size: 15px; background-color: transparent;" readonly value="{{ $sungai->nama_sungai ?? '' }}">
                 </div>
 
                 <div class="mb-4 pb-2">
-                    <input type="text" class="form-control border-0 border-bottom rounded-0 shadow-none px-0" name="alamat" placeholder="Alamat" style="color: #6b7280; border-bottom: 1.5px solid #9ca3af !important; font-size: 15px; background-color: transparent;" required>
+                    <input type="text" class="form-control border-0 border-bottom rounded-0 shadow-none px-0" name="alamat" placeholder="Alamat" style="color: #6b7280; border-bottom: 1.5px solid #9ca3af !important; font-size: 15px; background-color: transparent;" readonly value="{{ $sungai->alamat ?? '' }}">
                 </div>
 
                 <div class="mb-4 pb-2">

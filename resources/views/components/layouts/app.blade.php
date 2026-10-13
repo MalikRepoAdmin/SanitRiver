@@ -12,12 +12,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <link rel="stylesheet" href="{{ asset('css/base.css') }}">
     <link rel="stylesheet" href="{{ asset('css/layout.css') }}">
     <link rel="stylesheet" href="{{ asset('css/index-style.css') }}">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
     <!-- CSS -->
     <style>
@@ -57,21 +57,7 @@
 
     @include('components.layouts.partials.footer')
 
-    {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
-
-    {{-- <!-- Script for map and ajax -->
-        <script src="{{ asset('js/sungai-map.js') }}"></script>
-
-        <!-- Fallback script to trigger initialization -->
-        <script>
-        const el = document.getElementById('map');
-        if (el && el._leaflet_id) {
-        el._leaflet_id = null;
-        }
-        if ()
-            window.dispatchEvent(new Event('init-map'));
-        </script> --}}
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     @stack('scripts')
 </body>
 
