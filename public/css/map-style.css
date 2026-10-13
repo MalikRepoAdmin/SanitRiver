@@ -105,6 +105,7 @@
 
 .dot-bersih   { background: #1a9e8f; }
 .dot-cukup    { background: #2563eb; }
+.dot-kurang    { background: #ffa500; }
 .dot-tercemar { background: #dc2626; }
 
 /* ====== MAP CONTAINER ====== */

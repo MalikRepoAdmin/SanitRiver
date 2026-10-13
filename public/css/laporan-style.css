@@ -90,6 +90,7 @@
 
 .badge-bersih   { background: #d1fae5; color: #065f46; }
 .badge-cukup    { background: #dbeafe; color: #1e40af; }
+.badge-kurang   { background: #fffbeb; color: #92400e; }
 .badge-tercemar { background: #fee2e2; color: #991b1b; }
 .badge-default  { background: #f1f5f9; color: #475569; }
 
