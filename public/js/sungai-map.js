@@ -49,6 +49,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 const status = feature.properties.status || 'Belum Terlapor';
                 const tipe = feature.properties.tipe || 'river';
 
+                // Isi elemen HTML Blade dengan properti dari JSON JavaScript
+                document.getElementById('sungai-nama').textContent = feature.properties.nama || 'Aliran tidak Bernama';
+                document.getElementById('sungai-tipe').textContent = (feature.properties.tipe || 'river').toUpperCase();
+                document.getElementById('sungai-alamat').textContent = feature.properties.alamat || 'Tidak ada info wilayah';
+                document.getElementById('sungai-status').textContent = feature.properties.status || 'Belum Terlapor';
+
                 const htmlPopup = `
                     <div class="custom-popup">
                         <h3>💧 Detail Aliran Sungai</h3>
@@ -80,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         fetch(urlWithParams, {
             headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"').getAttribute('content'),
                 'Content-Type': 'application/json'
             },
         })

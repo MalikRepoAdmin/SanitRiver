@@ -1,0 +1,182 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+    font-size: 14px;
+    color: #1f2937;
+    background-color: #ffffff;
+    line-height: 1.5;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+    font-size: inherit;
+}
+
+/* Buttons */
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.button-green {
+    background-color: #006b5b;
+    color: #ffffff;
+}
+
+.button-blue {
+    background-color: #0b6a9e;
+    color: #ffffff;
+}
+
+.button-outline {
+    background-color: #ffffff;
+    border-color: #006b5b;
+    color: #006b5b;
+}
+
+.button-block {
+    width: 100%;
+}
+
+/* Status dots */
+.dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.dot-green,
+.dot-bersih {
+    background-color: #0a7d4f;
+}
+
+.dot-blue,
+.dot-cukup-bersih {
+    background-color: #0b6a9e;
+}
+
+.dot-red,
+.dot-tercemar {
+    background-color: #d92d20;
+}
+
+/* Status badges */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.status-badge-bersih {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.status-badge-cukup-bersih {
+    background-color: #dbeafe;
+    color: #1e5a8a;
+}
+
+.status-badge-tercemar {
+    background-color: #fee2e2;
+    color: #b42318;
+}
+
+/* Filter fields (shared by reports + map) */
+.filter-field {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 16px;
+    height: 48px;
+    background-color: #f3f4f6;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    color: #6b7280;
+}
+
+.filter-field input,
+.filter-field select {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #374151;
+}
+
+.filter-search {
+    flex: 1;
+}
+
+.filter-select {
+    min-width: 200px;
+}
+
+/* Status filter pills */
+.status-filter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.status-filter-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #374151;
+}
+
+.status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 14px;
+    border: 1px solid #e5e7eb;
+    border-radius: 999px;
+    background-color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    color: #1f2937;
+    cursor: pointer;
+}
+
+.status-pill-active {
+    background-color: #006b5b;
+    border-color: #006b5b;
+    color: #ffffff;
+}

@@ -16,7 +16,7 @@
             <div class="d-flex justify-content-center gap-4" id="btn-navbar">
                 <a class="btn" href="/beranda" wire:navigate>Beranda</a>
                 <a class="btn" href="/laporan-sungai" wire:navigate>Laporan Sungai</a>
-                <a class="btn" href="/sungai-map" wire:navigate>Peta Sungai</a>
+                <a class="btn" href="/sungai/map">Peta Sungai</a>
             </div>
         </div>
         {{-- Kolom Kanan Profil Pengguna --}}
@@ -32,7 +32,7 @@
                 </div>
                 <div class="lh-2">
                     <small class="d-block text-muted" style="font-size: 0.75rem;">Selamat Datang</small>
-                    <strong style="font-size: 14px;">{{ $username }}</strong>
+                    <strong style="font-size: 14px;">{{ Auth::user()->name ?? 'Guest' }}</strong>
                 </div>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"

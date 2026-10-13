@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\SungaiApiController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LaporanSungaiController;
 use App\Http\Controllers\SungaiController;
 use App\Http\Controllers\UserController;
@@ -9,6 +10,11 @@ use App\Livewire\DashboardLivewire;
 use App\Livewire\SungaiMapLivewire;
 use Illuminate\Support\Facades\Route;
 
+/**
+ * Auth Routes
+ */
+Route::post('/login', [AuthController::class, 'loginUser'])->name('login');
+Route::post('/logout', [AuthController::class, 'logoutUser'])->name('logout');
 
 /**
  * Livewire Views Routes
@@ -22,10 +28,13 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/', function(){
     return view('welcome');
 });
+Route::get('/sungai/map', function(){
+    return view('map.map');
+});
 Route::get('/beranda', DashboardLivewire::class)->name('beranda');
 Route::get('/sungai-map', SungaiMapLivewire::class)->name('sungai.map');
 Route::get('/laporan-sungai', SungaiMapLivewire::class)->name('sungai.laporan');
-
+Route::get('/create-laporan', CreateLaporanLivewire::class)->name('sungai.laporan.create');
 
 /**
  * Sungai Map Routes
