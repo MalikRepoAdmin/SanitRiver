@@ -32,10 +32,10 @@ Route::middleware('auth')->group(function () {
 /**
  * Livewire Views Routes
  */
-// // Auth Mandatory
-// Route::middleware(['auth'])->group(function () {
-//     Route::get('/create-laporan', CreateLaporanLivewire::class)->name('sungai.laporan.create');
-// });
+// Auth Mandatory
+Route::middleware(['auth'])->group(function () {
+    Route::get('/sungai/{id}/laporan', CreateLaporanLivewire::class)->whereNumber('id')->name('sungai.laporan.create');
+});
 
 // Auth not Mandatory
 Route::get('/sungai/map', function(){
@@ -43,7 +43,6 @@ Route::get('/sungai/map', function(){
 });
 Route::get('/', DashboardLivewire::class)->name('beranda');
 Route::get('/laporan-sungai', LaporanSungaiLivewire::class)->name('sungai.laporan');
-Route::get('/sungai/{id}/laporan', CreateLaporanLivewire::class)->whereNumber('id')->name('sungai.laporan.create');
 
 /**
  * Sungai Map Routes
