@@ -49,10 +49,6 @@ return new class extends Migration
              */
             $table->index('sungai_id');
 
-            /*
-             * Optimize filtering reports by approval status.
-             */
-            $table->index('persetujuan');
         });
     }
 
