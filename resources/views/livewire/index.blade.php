@@ -72,7 +72,7 @@
                         </div>
                         <span class="fw-bold" style="font-size: 0.8rem; color: #00685F;">+18 Data Baru</span>
                     </div>
-                    <h2 class="fw-bold mb-2" style="font-size: 2.5rem; color: #1a202c;">142</h2>
+                    <h2 class="fw-bold mb-2" style="font-size: 2.5rem; color: #1a202c;">{{ $this->sungaiCount }}</h2>
                     <h6 class="fw-bold mb-2" style="color: #2d3748;">Sungai Terdata</h6>
                     <p class="text-muted mb-0" style="font-size: 0.85rem; line-height: 1.5;">Mencakup 12 wilayah
                         provinsi prioritas</p>
@@ -93,8 +93,9 @@
                         </div>
                         <span class="fw-bold" style="font-size: 0.8rem; color: #1e40af;">Tervalidasi</span>
                     </div>
-                    <h2 class="fw-bold mb-2" style="font-size: 2.5rem; color: #1a202c;">1.280+</h2>
-                    <h6 class="fw-bold mb-2" style="color: #2d3748;">Laporan Terverifikasi</h6>
+                    <h2 class="fw-bold mb-2" style="font-size: 2.5rem; color: #1a202c;">{{ $this->laporansungaiCount }}
+                    </h2>
+                    <h6 class="fw-bold mb-2" style="color: #2d3748;">Laporan Tercatat</h6>
                     <p class="text-muted mb-0" style="font-size: 0.85rem; line-height: 1.5;">Sains warga dilengkapi
                         koordinat GPS</p>
                 </div>
@@ -137,8 +138,8 @@
                         </div>
                         <span class="fw-bold" style="font-size: 0.8rem; color: #00685F;">Komunitas Warga</span>
                     </div>
-                    <h2 class="fw-bold mb-2" style="font-size: 2.5rem; color: #1a202c;">3.450</h2>
-                    <h6 class="fw-bold mb-2" style="color: #2d3748;">Relawan Aktif</h6>
+                    <h2 class="fw-bold mb-2" style="font-size: 2.5rem; color: #1a202c;">{{ $this->userCount }}</h2>
+                    <h6 class="fw-bold mb-2" style="color: #2d3748;">Pengguna Terdaftar</h6>
                     <p class="text-muted mb-0" style="font-size: 0.85rem; line-height: 1.5;">Pengawas independen &
                         pemerhati air</p>
                 </div>

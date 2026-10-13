@@ -16,12 +16,37 @@
 
     <link rel="stylesheet" href="{{ asset('css/base.css') }}">
     <link rel="stylesheet" href="{{ asset('css/layout.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/index-style.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- CSS -->
+    <style>
+        .map-container {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+
+        .custom-popup h3 {
+            margin: 0 0 5px 0;
+            color: #007bff;
+        }
+    </style>
+    @livewireStyles()
     @stack('styles')
 </head>
 
 <body>
 
-    @include('components.layouts.partials.header')
+    @php
+        $username = $slot->attributes->get('user')->username ?? 'Guest';
+    @endphp
+
+    @include('components.layouts.partials.header', ['username' => $username])
 
     {{-- Blank area: every page fills this section --}}
     <main class="page-content">
@@ -32,7 +57,21 @@
 
     @include('components.layouts.partials.footer')
 
-    <script src="{{ asset('js/app.js') }}"></script>
+    {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
+
+    {{-- <!-- Script for map and ajax -->
+        <script src="{{ asset('js/sungai-map.js') }}"></script>
+
+        <!-- Fallback script to trigger initialization -->
+        <script>
+        const el = document.getElementById('map');
+        if (el && el._leaflet_id) {
+        el._leaflet_id = null;
+        }
+        if ()
+            window.dispatchEvent(new Event('init-map'));
+        </script> --}}
+
     @stack('scripts')
 </body>
 
