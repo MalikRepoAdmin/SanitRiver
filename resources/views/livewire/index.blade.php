@@ -62,12 +62,12 @@
                                 </path>
                             </svg>
                         </div>
-                        <span class="fw-bold" style="font-size: 0.8rem; color: #00685F;">+18 Data Baru</span>
+                        <span class="fw-bold" style="font-size: 0.8rem; color: #00685F;">By OpenStreetMap</span>
                     </div>
                     <h2 class="fw-bold mb-2" style="font-size: 2.5rem; color: #1a202c;">{{ $this->sungaiCount }}</h2>
                     <h6 class="fw-bold mb-2" style="color: #2d3748;">Sungai Terdata</h6>
-                    <p class="text-muted mb-0" style="font-size: 0.85rem; line-height: 1.5;">Mencakup 12 wilayah
-                        provinsi prioritas</p>
+                    <p class="text-muted mb-0" style="font-size: 0.85rem; line-height: 1.5;">Dilengkapi data titik
+                        lokasi</p>
                 </div>
             </div>
             {{-- Card 2: Laporan Terverifikasi --}}
@@ -88,8 +88,8 @@
                     <h2 class="fw-bold mb-2" style="font-size: 2.5rem; color: #1a202c;">{{ $this->laporansungaiCount }}
                     </h2>
                     <h6 class="fw-bold mb-2" style="color: #2d3748;">Laporan Tercatat</h6>
-                    <p class="text-muted mb-0" style="font-size: 0.85rem; line-height: 1.5;">Sains warga dilengkapi
-                        koordinat GPS</p>
+                    <p class="text-muted mb-0" style="font-size: 0.85rem; line-height: 1.5;">Partisipasi User dan warga
+                        setempat</p>
                 </div>
             </div>
             {{-- Card 4: Relawan Aktif --}}
@@ -98,9 +98,8 @@
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <div class="rounded-3 d-flex align-items-center justify-content-center"
                             style="width: 48px; height: 48px; background-color: #e0e7ff; color: #3730a3;">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                                 <circle cx="9" cy="7" r="4"></circle>
                                 <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
@@ -128,7 +127,8 @@
                     telah melalui validasi laporan melalui SanitRiver.</p>
             </div>
             <div class="col-md-4 text-md-end mt-3 mt-md-0">
-                <a href="{{ route('sungai.laporan') }}" class="text-decoration-none fw-bold" style="color: #00685F;" wire:navigate>Lihat Semua Laporan
+                <a href="{{ route('sungai.laporan') }}" class="text-decoration-none fw-bold" style="color: #00685F;"
+                    wire:navigate>Lihat Semua Laporan
                     &rarr;</a>
             </div>
         </div>
@@ -175,7 +175,8 @@
                             {{-- Placeholder icon dari Bootstrap Icons CDN --}}
                             <div class="w-100 d-flex align-items-center justify-content-center bg-light"
                                 style="height: 220px;">
-                                <i class="bi {{ $icon }}" style="font-size: 5rem; color: {{ $badgeColor }};"></i>
+                                <i class="bi {{ $icon }}"
+                                    style="font-size: 5rem; color: {{ $badgeColor }};"></i>
                             </div>
 
                             {{-- Badge Status --}}
@@ -189,7 +190,7 @@
                             {{-- Badge Lokasi --}}
                             <div class="position-absolute bottom-0 end-0 m-3 px-3 py-1 rounded-pill"
                                 style="background-color: rgba(30, 41, 59, 0.85); color: white; font-size: 0.75rem; font-weight: 600;">
-                                {{ $laporan->sungai->lokasi ?? 'Lokasi Tidak Diketahui' }}
+                                {{ $laporan->sungai->alamat ?? 'Lokasi Tidak Diketahui' }}
                             </div>
                         </div>
 

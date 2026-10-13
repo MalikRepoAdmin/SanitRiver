@@ -103,10 +103,21 @@
     display: inline-block;
 }
 
-.dot-bersih   { background: #1a9e8f; }
-.dot-cukup    { background: #2563eb; }
-.dot-kurang    { background: #ffa500; }
-.dot-tercemar { background: #dc2626; }
+.dot-bersih {
+    background: #1a9e8f;
+}
+
+.dot-cukup {
+    background: #2563eb;
+}
+
+.dot-kurang {
+    background: #ffa500;
+}
+
+.dot-tercemar {
+    background: #dc2626;
+}
 
 /* ====== MAP CONTAINER ====== */
 .map-container {
@@ -114,6 +125,7 @@
     gap: 16px;
     flex: 1;
     min-height: 600px;
+    max-width: 1820px;
 }
 
 /* ====== SIDEBAR INFO ====== */
