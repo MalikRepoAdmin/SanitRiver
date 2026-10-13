@@ -31,48 +31,24 @@ class CreateLaporanLivewire extends Component
         $this->sungai_id = $this->sungai->sungai_id;
     }
 
-    /**
-     * Aturan validasi
-     */
-    protected function rules()
-    {
-        return [
-            'sungai_id' => 'required|exists:sungais,sungai_id',
-            'status'    => 'required|in:Bersih,Cukup Bersih,Kurang Bersih,Tercemar',
-        ];
-    }
-
-    /**
-     * Pesan validasi (opsional, biar bahasa Indonesia)
-     */
-    protected function messages()
-    {
-        return [
-            'status.required' => 'Status laporan wajib dipilih.',
-            'status.in'       => 'Status laporan tidak valid.',
-        ];
-    }
 
     /**
      * Simpan laporan
      */
     public function store()
     {
-        dd('MASUK STORE', [
-            'sungai_id' => $this->sungai_id,
-            'status'    => $this->status,
-            'auth'      => Auth::check(),
-            'user'      => Auth::user(),
-        ]);
-
-        // Validasi input
-        $this->validate();
-
         // Pastikan user sudah login
         if (!Auth::check()) {
             session()->flash('error', 'Silakan login terlebih dahulu untuk mengirim laporan.');
             return redirect()->route('login');
         }
+
+        // dd('MASUK STORE', [
+        //     'sungai_id' => $this->sungai_id,
+        //     'status'    => $this->status,
+        //     'auth'      => Auth::check(),
+        //     'user'      => Auth::user(),
+        // ]);
 
         // Simpan ke database
         $laporan = LaporanSungai::create([
