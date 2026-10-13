@@ -7,7 +7,6 @@
     use App\Http\Controllers\UserController;
     use App\Livewire\CreateLaporanLivewire;
     use App\Livewire\LaporanSungaiLivewire;
-    use App\Livewire\SungaiMapLivewire;
     use App\Livewire\DashboardLivewire;
     use Illuminate\Support\Facades\Route;
 
@@ -16,13 +15,13 @@
  */
 // Route untuk pengunjung yang BELUM login (Guest)
 
-    // Tampilan Form
-    Route::get('/login', [AuthController::class, 'showLoginUser'])->name('login');
-    Route::get('/register', [AuthController::class, 'showRegisterUser'])->name('register');
+// Tampilan Form
+Route::get('/login', [AuthController::class, 'showLoginUser'])->name('login');
+Route::get('/register', [AuthController::class, 'showRegisterUser'])->name('register');
 
-    // Proses Form (Submit)
-    Route::post('/login', [AuthController::class, 'loginUser'])->name('login.submit');
-    Route::post('/register', [AuthController::class, 'registerUser'])->name('register.submit');
+// Proses Form (Submit)
+Route::post('/login', [AuthController::class, 'loginUser'])->name('login.submit');
+Route::post('/register', [AuthController::class, 'registerUser'])->name('register.submit');
 
 
 // Route untuk pengguna yang SUDAH login (Auth)
@@ -43,7 +42,6 @@ Route::get('/sungai/map', function(){
     return view('map.map');
 });
 Route::get('/', DashboardLivewire::class)->name('beranda');
-Route::get('/sungai-map', SungaiMapLivewire::class)->name('sungai.map');
 Route::get('/laporan-sungai', LaporanSungaiLivewire::class)->name('sungai.laporan');
 Route::get('/sungai/{id}/laporan', CreateLaporanLivewire::class)->whereNumber('id')->name('sungai.laporan.create');
 
