@@ -3,13 +3,13 @@
     {{-- Judul Sungai --}}
     <div class="info-header">
         <h2 id="sungai-nama">Pilih Sungai</h2>
-        <p class="info-location">
+        <p class="info-location" id="sungai-alamat">
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2">
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                 <circle cx="12" cy="10" r="3"></circle>
             </svg>
-            Jl. MT Haryono No. 14, Cawang, Kramat Jati, Jakarta Timur, DKI Jakarta
+            Pilih sungai pada peta untuk melihat detailnya
         </p>
     </div>
 
@@ -19,11 +19,10 @@
             <span class="info-card-title">
                 <span class="icon-box">💧</span> Status Sanitasi & Mutu Air
             </span>
-            <span class="info-update">Update: 15 mnt lalu</span>
         </div>
         <div class="info-row">
             <span>Status Sanitasi Sungai</span>
-            <span class="badge badge-bersih">Bersih</span>
+            <span class="badge badge-bersih" id="sungai-status">Pilih Sungai</span>
         </div>
     </div>
 
@@ -33,21 +32,7 @@
             <span class="info-card-title">Tipe Sungai</span>
         </div>
         <div class="info-row">
-            <span>Sungai hilir</span>
-        </div>
-    </div>
-
-    {{-- Dokumentasi --}}
-    <div class="info-card">
-        <div class="info-card-header">
-            <span class="info-card-title">
-                <span class="icon-box">🖼️</span> Dokumentasi Sanitasi Sungai Terkini
-            </span>
-            <span class="info-update">3 Foto</span>
-        </div>
-        <div class="info-doc">
-            <img src="{{ asset('images/beranda-sungai.jpg') }}" alt="Dokumentasi sungai">
-            <span class="doc-caption">Bantaran Cawang</span>
+            <span id="sungai-tipe">Pilih Sungai</span>
         </div>
     </div>
 

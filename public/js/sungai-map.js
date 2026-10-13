@@ -14,23 +14,6 @@ document.addEventListener('DOMContentLoaded', function () {
         attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
-    // 4. Buat Layer Spasial untuk menampung garis/titik sungai
-    // const sungaiLayer = L.geoJSON(null, {
-    //     style: function (feature) {
-    //         let warnaGaris = "#FF00FF";
-    //         let tebalGaris = 4;
-
-    //         if (feature.properties.tipe === 'canal') {
-    //             warnaGaris = "#00FFFF";
-    //             tebalGaris = 3;
-    //         } else if (feature.properties.tipe === 'stream') {
-    //             warnaGaris = "#FFFF00";
-    //             tebalGaris = 2.5;
-    //         }
-
-    //         return { color: warnaGaris, weight: tebalGaris, opacity: 1.0 };
-    //     },
-
     const sungaiLayer = L.geoJSON(null, {
         pointToLayer: function (feature, latlng) {
             const hasName = Boolean(feature.properties.nama);
@@ -49,12 +32,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 const status = feature.properties.status || 'Belum Terlapor';
                 const tipe = feature.properties.tipe || 'river';
 
-                // Isi elemen HTML Blade dengan properti dari JSON JavaScript
-                document.getElementById('sungai-nama').textContent = feature.properties.nama || 'Aliran tidak Bernama';
-                document.getElementById('sungai-tipe').textContent = (feature.properties.tipe || 'river').toUpperCase();
-                document.getElementById('sungai-alamat').textContent = feature.properties.alamat || 'Tidak ada info wilayah';
-                document.getElementById('sungai-status').textContent = feature.properties.status || 'Belum Terlapor';
-
                 const htmlPopup = `
                     <div class="custom-popup">
                         <h3>💧 Detail Aliran Sungai</h3>
@@ -69,6 +46,20 @@ document.addEventListener('DOMContentLoaded', function () {
                     </div>
                 `;
                 layer.bindPopup(htmlPopup);
+
+                // TAMBAHKAN EVENT LISTENER KLIK DI SINI
+                layer.on('click', function () {
+                    // Cek apakah elemen ada sebelum mengubah isinya untuk menghindari error
+                    const elNama = document.getElementById('sungai-nama');
+                    const elTipe = document.getElementById('sungai-tipe');
+                    const elAlamat = document.getElementById('sungai-alamat');
+                    const elStatus = document.getElementById('sungai-status');
+
+                    if(elNama) elNama.textContent = nama;
+                    if(elTipe) elTipe.textContent = tipe.toUpperCase();
+                    if(elAlamat) elAlamat.textContent = alamat;
+                    if(elStatus) elStatus.textContent = status;
+                });
             }
         }
     }).addTo(map);
