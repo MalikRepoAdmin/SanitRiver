@@ -1,31 +1,30 @@
 <?php
 
 use App\Http\Controllers\Api\SungaiApiController;
+use App\Http\Controllers\LaporanSungaiController;
 use App\Http\Controllers\SungaiController;
 use App\Http\Controllers\UserController;
+use App\Livewire\CreateLaporanLivewire;
+use App\Livewire\DashboardLivewire;
+use App\Livewire\SungaiMapLivewire;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
+
+/**
+ * Livewire Views Routes
+ */
+// Auth Mandatory
+Route::middleware(['auth'])->group(function () {
+    Route::get('/create-laporan', CreateLaporanLivewire::class)->name('sungai.laporan.create');
 });
 
-Route::get('/beranda', function () {
+// Auth not Mandatory
+Route::get('/', function(){
     return view('welcome');
-})->name('beranda');
-
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login');
-
-Route::get('/user/{user_id}', function ($user_id) {
-    return "User profile {$user_id}";
-})->name('user.profile');
-
-Route::get('/admin/{admin_id}', function ($admin_id) {
-    return "Admin profile {$admin_id}";
-})->name('admin.profile');
-
-Route::resource('users', UserController::class);
+});
+Route::get('/beranda', DashboardLivewire::class)->name('beranda');
+Route::get('/sungai-map', SungaiMapLivewire::class)->name('sungai.map');
+Route::get('/laporan-sungai', SungaiMapLivewire::class)->name('sungai.laporan');
 
 
 /**
@@ -34,8 +33,5 @@ Route::resource('users', UserController::class);
 // Route to display Blade page where map placed
 Route::get('/user-dashboard', [SungaiController::class, 'index'])->name('user.dashboard');
 
-// Special route for AJAX to get Bounding Box data (GeoJSON)
-Route::get('/api/sungai-bbox', [SungaiApiController::class, 'getWaterways'])->name('api.sungai.bbox');
-
-// Rute halaman detail saat popup sungai diklik (Opsional, untuk masa depan)
+// Rute halaman detail saat popup sungai diklik (Opsional)
 Route::get('/sungai/{id}', [SungaiController::class, 'show'])->name('sungai.show');
