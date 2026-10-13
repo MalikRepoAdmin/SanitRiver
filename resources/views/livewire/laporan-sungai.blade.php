@@ -3,21 +3,13 @@
     {{-- ====== FILTER & SEARCH ====== --}}
     @include('map.partials.filter-laporan')
 
+    <link rel="stylesheet" href="{{ asset('css/laporan-style.css') }}">
+
     {{-- ====== GRID KARTU LAPORAN ====== --}}
     <div class="laporan-grid">
 
         @forelse ($laporansungais as $laporan)
-            <article class="laporan-card">
-
-                {{-- Gambar Utama --}}
-                <div class="laporan-image">
-                    @if ($laporan->gambarSungais->first())
-                        <img src="{{ asset('storage/' . $laporan->gambarSungais->first()->file_path) }}"
-                             alt="{{ $laporan->sungai->nama_sungai ?? 'Sungai' }}">
-                    @else
-                        <img src="{{ asset('images/beranda-sungai.jpg') }}" alt="Default">
-                    @endif
-                </div>
+            <article class="laporan-card" wire:key="laporan-{{ $laporan->laporansungai_id }}">
 
                 {{-- Konten --}}
                 <div class="laporan-body">
@@ -36,24 +28,22 @@
                         @endif
                     </h3>
 
-                    {{-- Deskripsi --}}
-                    <p class="laporan-desc">
-                        {{ \Illuminate\Support\Str::limit($laporan->status ?? 'Belum ada deskripsi laporan.', 120) }}
-                    </p>
-
                     {{-- Badge Status --}}
                     @php
-                        $statusClass = match (strtolower($laporan->status ?? '')) {
-                            'bersih'   => 'badge-bersih',
-                            'cukup'    => 'badge-cukup',
-                            'tercemar' => 'badge-tercemar',
-                            default    => 'badge-default',
+                        $statusKey = strtolower($laporan->status ?? '');
+                        $statusClass = match ($statusKey) {
+                            'bersih'        => 'badge-bersih',
+                            'cukup bersih'  => 'badge-cukup',
+                            'kurang bersih' => 'badge-kurang',
+                            'tercemar'      => 'badge-tercemar',
+                            default         => 'badge-default',
                         };
-                        $dotClass = match (strtolower($laporan->status ?? '')) {
-                            'bersih'   => 'dot-bersih',
-                            'cukup'    => 'dot-cukup',
-                            'tercemar' => 'dot-tercemar',
-                            default    => 'dot-default',
+                        $dotClass = match ($statusKey) {
+                            'bersih'        => 'dot-bersih',
+                            'cukup bersih'  => 'dot-cukup',
+                            'kurang bersih' => 'dot-kurang',
+                            'tercemar'      => 'dot-tercemar',
+                            default         => 'dot-default',
                         };
                     @endphp
                     <span class="badge {{ $statusClass }}">
@@ -65,12 +55,12 @@
                     <div class="laporan-footer">
                         <div class="laporan-user">
                             <div class="user-avatar">
-                                {{ strtoupper(substr($laporan->user->name ?? 'U', 0, 1)) }}
+                                {{ strtoupper(substr($laporan->user->username ?? 'U', 0, 1)) }}
                             </div>
                             <div class="user-info">
-                                <span class="user-name">{{ $laporan->user->name ?? 'Anonim' }}</span>
+                                <span class="user-name">{{ $laporan->user->username ?? 'Anonim' }}</span>
                                 <span class="user-date">
-                                    {{ $laporan->created_at?->format('d/m/Y') ?? '-' }}
+                                    {{ $laporan->created_at?->diffForHumans() ?? '-' }}
                                 </span>
                             </div>
                         </div>
@@ -85,18 +75,5 @@
         @endforelse
 
     </div>
-
-    <!-- {{-- ====== PAGINATION INFO ====== --}}
-    <div class="laporan-pagination">
-        <span class="pagination-info">
-            Menampilkan {{ $laporansungais->firstItem() ?? 0 }}
-            sampai {{ $laporansungais->lastItem() ?? 0 }}
-            dari {{ $laporansungais->total() }} laporan warga
-        </span>
-
-        <div class="pagination-links">
-            {{ $laporansungais->links() }}
-        </div>
-    </div> -->
 
 </div>

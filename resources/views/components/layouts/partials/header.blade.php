@@ -14,7 +14,7 @@
         {{-- Kolom Tengah Menu Navigasi --}}
         <div class="col-md-4">
             <div class="d-flex justify-content-center gap-4" id="btn-navbar">
-                <a class="btn" href="/beranda" wire:navigate>Beranda</a>
+                <a class="btn" href="/" wire:navigate>Beranda</a>
                 <a class="btn" href="/laporan-sungai" wire:navigate>Laporan Sungai</a>
                 <a class="btn" href="/sungai/map">Peta Sungai</a>
             </div>
@@ -40,7 +40,7 @@
                         <!-- Teks Nama -->
                         <div class="lh-2">
                             <small class="d-block text-muted" style="font-size: 0.75rem;">Selamat Datang</small>
-                            <strong style="font-size: 14px;">{{ Auth::user()->name ?? 'Guest' }}</strong>
+                            <strong style="font-size: 14px;">{{ Auth::user()->username ?? 'Guest' }}</strong>
                         </div>
                         
                         <!-- Ikon Panah Bawah -->
@@ -67,11 +67,6 @@
 
                         {{-- Jika pengguna SUDAH login (Auth) --}}
                         @auth
-                            <li>
-                                <a class="dropdown-item" href="#">
-                                    <i class="bi bi-person me-2"></i>Profil Saya
-                                </a>
-                            </li>
                             <li><hr class="dropdown-divider"></li>
                             <li>
                                 <!-- Logout biasanya memerlukan metode POST demi keamanan -->

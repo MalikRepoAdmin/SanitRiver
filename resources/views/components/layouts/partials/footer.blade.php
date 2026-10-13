@@ -15,10 +15,9 @@
             <div class="col-lg-3 col-md-6 mb-4">
                 <h6 class="fw-bold mb-3" style="color: #00685F; font-size: 1.05rem;">Navigasi Cepat</h6>
                 <ul class="list-unstyled" style="font-size: 0.85rem; line-height: 2.2;">
-                    <li><a href="#" class="text-decoration-none text-dark">Beranda</a></li>
-                    <li><a href="#" class="text-decoration-none text-dark">Laporan Sungai</a></li>
-                    <li><a href="#" class="text-decoration-none text-dark">Peta Sungai</a></li>
-                    <li><a href="#" class="text-decoration-none text-dark">Buat Laporan Sungai</a></li>
+                    <li><a href="/" class="text-decoration-none text-dark">Beranda</a></li>
+                    <li><a href="{{ route('sungai.laporan') }}" class="text-decoration-none text-dark" wire:navigate>Laporan Sungai</a></li>
+                    <li><a href="{{ route('sungai.map') }}" class="text-decoration-none text-dark" wire:navigate>Peta Sungai</a></li>
                 </ul>
             </div>
             {{-- Kolom 3 Hubungi Kami & Sosial Media --}}

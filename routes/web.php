@@ -15,7 +15,7 @@
  * Auth Routes
  */
 // Route untuk pengunjung yang BELUM login (Guest)
-Route::middleware('guest')->group(function () {
+
     // Tampilan Form
     Route::get('/login', [AuthController::class, 'showLoginUser'])->name('login');
     Route::get('/register', [AuthController::class, 'showRegisterUser'])->name('register');
@@ -23,7 +23,7 @@ Route::middleware('guest')->group(function () {
     // Proses Form (Submit)
     Route::post('/login', [AuthController::class, 'loginUser'])->name('login.submit');
     Route::post('/register', [AuthController::class, 'registerUser'])->name('register.submit');
-});
+
 
 // Route untuk pengguna yang SUDAH login (Auth)
 Route::middleware('auth')->group(function () {
@@ -39,16 +39,13 @@ Route::middleware('auth')->group(function () {
 // });
 
 // Auth not Mandatory
-Route::get('/', function(){
-    return view('welcome');
-});
 Route::get('/sungai/map', function(){
     return view('map.map');
 });
-Route::get('/beranda', DashboardLivewire::class)->name('beranda');
+Route::get('/', DashboardLivewire::class)->name('beranda');
 Route::get('/sungai-map', SungaiMapLivewire::class)->name('sungai.map');
 Route::get('/laporan-sungai', LaporanSungaiLivewire::class)->name('sungai.laporan');
-Route::get('/sungai/{id}/laporan', CreateLaporanLivewire::class)->name('sungai.laporan.create');
+Route::get('/sungai/{id}/laporan', CreateLaporanLivewire::class)->whereNumber('id')->name('sungai.laporan.create');
 
 /**
  * Sungai Map Routes

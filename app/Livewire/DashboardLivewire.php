@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Validator;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Layout;
 
-#[Layout('components.layouts.app')]
 class DashboardLivewire extends Component
 {
     /**
@@ -68,7 +67,7 @@ class DashboardLivewire extends Component
     }
 
 
-    
+    #[Layout('components.layouts.app')]
     public function render()
     {
         return view('livewire.index');

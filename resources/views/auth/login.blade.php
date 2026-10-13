@@ -14,6 +14,11 @@
                 <h4 class="fw-bold m-0" style="color: #111827; letter-spacing: -0.5px;">Login Akun SanitRiver</h4>
             </div>
 
+            @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
             <form action="{{ route('login') }}" method="POST">
                 @csrf
                 <div class="mb-4">
@@ -22,7 +27,7 @@
                     <div class="d-flex align-items-center w-100"
                         style="background-color: #f3f5f9; border-radius: 10px; padding: 4px 16px;">
                         <i class="fa-regular fa-id-badge" style="color: #8c94a3; font-size: 18px;"></i>
-                        <input type="text" class="form-control border-0 shadow-none bg-transparent" name="username"
+                        <input type="text" class="form-control border-0 shadow-none bg-transparent" name="login"
                             placeholder="nama_pengguna atau email@domain.com"
                             style="font-size: 14px; padding: 12px 10px; color: #111827;">
                     </div>

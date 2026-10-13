@@ -20,7 +20,7 @@
                     yang berkelanjutan.
                 </p>
                 <div class="d-flex align-items-center justify-content-start flex-wrap gap-3" id="btn-beranda">
-                    <button class="btn" style="background-color: #016498;">
+                    <a class="btn" style="background-color: #016498;" href="{{ route('sungai.map') }}">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
@@ -28,15 +28,7 @@
                             <line x1="16" y1="6" x2="16" y2="22"></line>
                         </svg>
                         Eksplorasi Peta Sungai
-                    </button>
-                    <button class="btn" style="background-color: #016960;">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                        </svg>
-                        Buat Laporan Sungai
-                    </button>
+                    </a>
                 </div>
             </div>
             {{-- Kolom Kanan: Gambar Sungai --}}
@@ -91,34 +83,13 @@
                                 <path d="M9 15l2 2 4-4"></path>
                             </svg>
                         </div>
-                        <span class="fw-bold" style="font-size: 0.8rem; color: #1e40af;">Tervalidasi</span>
+                        <span class="fw-bold" style="font-size: 0.8rem; color: #1e40af;">Tercatat</span>
                     </div>
                     <h2 class="fw-bold mb-2" style="font-size: 2.5rem; color: #1a202c;">{{ $this->laporansungaiCount }}
                     </h2>
                     <h6 class="fw-bold mb-2" style="color: #2d3748;">Laporan Tercatat</h6>
                     <p class="text-muted mb-0" style="font-size: 0.85rem; line-height: 1.5;">Sains warga dilengkapi
                         koordinat GPS</p>
-                </div>
-            </div>
-            {{-- Card 3: Tindak Lanjut Pemda --}}
-            <div class="col-6 col-lg-3 mb-4">
-                <div class="card border-0 rounded-4 shadow-sm h-100 p-4">
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                        <div class="rounded-3 d-flex align-items-center justify-content-center"
-                            style="width: 48px; height: 48px; background-color: #bbf7d0; color: #166534;">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path d="M3 2v6h6"></path>
-                                <path d="M3 13a9 9 0 1 0 3-7.7L3 8"></path>
-                            </svg>
-                        </div>
-                        <span class="fw-bold" style="font-size: 0.8rem; color: #166534;">Respons Cepat</span>
-                    </div>
-                    <h2 class="fw-bold mb-2" style="font-size: 2.5rem; color: #00685F;">94.6%</h2>
-                    <h6 class="fw-bold mb-2" style="color: #2d3748;">Tindak Lanjut Pemda/DLH</h6>
-                    <p class="text-muted mb-0" style="font-size: 0.85rem; line-height: 1.5;">Rata-rata intervensi
-                        dalam 48 jam</p>
                 </div>
             </div>
             {{-- Card 4: Relawan Aktif --}}
@@ -146,6 +117,7 @@
             </div>
         </div>
     </div>
+
     {{-- LAPORAN WARGA TERKINI --}}
     <div class="container-fluid py-5 bg-white">
         <!-- Bagian Judul dan Link -->
@@ -156,110 +128,92 @@
                     telah melalui validasi laporan melalui SanitRiver.</p>
             </div>
             <div class="col-md-4 text-md-end mt-3 mt-md-0">
-                <a href="#" class="text-decoration-none fw-bold" style="color: #00685F;">Lihat Semua Laporan
+                <a href="{{ route('sungai.laporan') }}" class="text-decoration-none fw-bold" style="color: #00685F;" wire:navigate>Lihat Semua Laporan
                     &rarr;</a>
             </div>
         </div>
 
         <!-- Bagian Grid Card Laporan -->
         <div class="row" style="margin-left: 60px; margin-right: 60px;">
-            <!-- Card 1: Bersih (Kab. Bandung) -->
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="card border-0 shadow-sm rounded-4 h-100 overflow-hidden">
-                    <div class="position-relative">
-                        <img src="{{ asset('images/laporan-1.jpg') }}" class="w-100" alt="Sungai Citarum"
-                            style="height: 220px; object-fit: cover;">
-                        <div class="position-absolute top-0 start-0 m-3 px-3 py-1 rounded-pill d-flex align-items-center gap-2"
-                            style="background-color: #d1fae5; color: #047857; font-size: 0.75rem; font-weight: 700;">
-                            <span class="rounded-circle"
-                                style="width: 6px; height: 6px; background-color: #047857;"></span> Bersih
+            @forelse ($this->laporansungaiLatest as $laporan)
+                @php
+                    // Tentukan warna & style berdasarkan status
+                    $status = $laporan->status ?? null;
+
+                    if ($status === 'Bersih') {
+                        $badgeBg = '#d1fae5';
+                        $badgeColor = '#047857';
+                        $dotColor = '#047857';
+                        $icon = 'bi-check-circle-fill';
+                    } elseif ($status === 'Cukup Bersih') {
+                        $badgeBg = '#ffedd5';
+                        $badgeColor = '#c2410c';
+                        $dotColor = '#c2410c';
+                        $icon = 'bi-exclamation-circle-fill';
+                    } elseif ($status === 'Kurang Bersih') {
+                        $badgeBg = '#fef9c3';
+                        $badgeColor = '#a16207';
+                        $dotColor = '#a16207';
+                        $icon = 'bi-exclamation-triangle-fill';
+                    } elseif ($status === 'Tercemar') {
+                        $badgeBg = '#ffe4e6';
+                        $badgeColor = '#be123c';
+                        $dotColor = '#be123c';
+                        $icon = 'bi-x-octagon-fill';
+                    } else {
+                        $badgeBg = '#e5e7eb';
+                        $badgeColor = '#4b5563';
+                        $dotColor = '#4b5563';
+                        $icon = 'bi-question-circle-fill';
+                        $status = 'Belum Terlapor';
+                    }
+                @endphp
+
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card border-0 shadow-sm rounded-4 h-100 overflow-hidden">
+                        <div class="position-relative">
+                            {{-- Placeholder icon dari Bootstrap Icons CDN --}}
+                            <div class="w-100 d-flex align-items-center justify-content-center bg-light"
+                                style="height: 220px;">
+                                <i class="bi {{ $icon }}" style="font-size: 5rem; color: {{ $badgeColor }};"></i>
+                            </div>
+
+                            {{-- Badge Status --}}
+                            <div class="position-absolute top-0 start-0 m-3 px-3 py-1 rounded-pill d-flex align-items-center gap-2"
+                                style="background-color: {{ $badgeBg }}; color: {{ $badgeColor }}; font-size: 0.75rem; font-weight: 700;">
+                                <span class="rounded-circle"
+                                    style="width: 6px; height: 6px; background-color: {{ $dotColor }};"></span>
+                                {{ $laporan->status }}
+                            </div>
+
+                            {{-- Badge Lokasi --}}
+                            <div class="position-absolute bottom-0 end-0 m-3 px-3 py-1 rounded-pill"
+                                style="background-color: rgba(30, 41, 59, 0.85); color: white; font-size: 0.75rem; font-weight: 600;">
+                                {{ $laporan->sungai->lokasi ?? 'Lokasi Tidak Diketahui' }}
+                            </div>
                         </div>
-                        <div class="position-absolute bottom-0 end-0 m-3 px-3 py-1 rounded-pill"
-                            style="background-color: rgba(30, 41, 59, 0.85); color: white; font-size: 0.75rem; font-weight: 600;">
-                            Kab. Madiun
-                        </div>
-                    </div>
-                    <!-- Isi Card -->
-                    <div class="card-body p-4 d-flex flex-column">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <small class="text-muted" style="font-size: 0.75rem;">DAS Citarum Sektor 1</small>
-                            <small class="text-muted fw-bold" style="font-size: 0.75rem;">35 Menit lalu</small>
-                        </div>
-                        <h5 class="fw-bold mb-3" style="color: #1a202c; line-height: 1.4;">Aliran Hulu Situ Cisanti
-                            Jernih Tanpa Endapan</h5>
-                        <p class="text-muted mb-4" style="font-size: 0.85rem; line-height: 1.6;">Pemeriksaan rutin
-                            mandiri. Air sangat bening, ikan endemik tampak aktif, tidak terdeteksi aroma limbah...</p>
-                        <div class="mt-auto border-top pt-3">
-                            <a href="#" class="text-decoration-none fw-bold"
-                                style="color: #00685F; font-size: 0.9rem;">Baca Selengkapnya</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {{-- Card 2 Cukup Bersih (Kota Surabaya)  --}}
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="card border-0 shadow-sm rounded-4 h-100 overflow-hidden">
-                    <div class="position-relative">
-                        <img src="{{ asset('images/laporan-2.jpg') }}" class="w-100" alt="Kali Mas"
-                            style="height: 220px; object-fit: cover;">
-                        <div class="position-absolute top-0 start-0 m-3 px-3 py-1 rounded-pill d-flex align-items-center gap-2"
-                            style="background-color: #ffedd5; color: #c2410c; font-size: 0.75rem; font-weight: 700;">
-                            <span class="rounded-circle"
-                                style="width: 6px; height: 6px; background-color: #c2410c;"></span> Cukup Bersih
-                        </div>
-                        <div class="position-absolute bottom-0 end-0 m-3 px-3 py-1 rounded-pill"
-                            style="background-color: rgba(30, 41, 59, 0.85); color: white; font-size: 0.75rem; font-weight: 600;">
-                            Kota Surabaya
-                        </div>
-                    </div>
-                    <div class="card-body p-4 d-flex flex-column">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <small class="text-muted" style="font-size: 0.75rem;">DAS Kali Mas Wonokromo</small>
-                            <small class="text-muted fw-bold" style="font-size: 0.75rem;">2 Jam lalu</small>
-                        </div>
-                        <h5 class="fw-bold mb-3" style="color: #1a202c; line-height: 1.4;">Sedimentasi Lumpur
-                            Meningkat Usai Hujan Deras</h5>
-                        <p class="text-muted mb-4" style="font-size: 0.85rem; line-height: 1.6;">Kekeruhan visual
-                            berwarna cokelat muda akibat limpasan air hujan dari bagian hulu. Aliran lancar, pintu</p>
-                        <div class="mt-auto border-top pt-3">
-                            <a href="#" class="text-decoration-none fw-bold"
-                                style="color: #00685F; font-size: 0.9rem;">Baca Selengkapnya</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {{-- Card 3 Tercemar (Bekasi Timur) --}}
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="card border-0 shadow-sm rounded-4 h-100 overflow-hidden">
-                    <div class="position-relative">
-                        <img src="{{ asset('images/laporan-3.jpg') }}" class="w-100" alt="Kali Bekasi"
-                            style="height: 220px; object-fit: cover;">
-                        <div class="position-absolute top-0 start-0 m-3 px-3 py-1 rounded-pill d-flex align-items-center gap-2"
-                            style="background-color: #ffe4e6; color: #be123c; font-size: 0.75rem; font-weight: 700;">
-                            <span class="rounded-circle"
-                                style="width: 6px; height: 6px; background-color: #be123c;"></span> Tercemar
-                        </div>
-                        <div class="position-absolute bottom-0 end-0 m-3 px-3 py-1 rounded-pill"
-                            style="background-color: rgba(30, 41, 59, 0.85); color: white; font-size: 0.75rem; font-weight: 600;">
-                            Bekasi Timur
-                        </div>
-                    </div>
-                    <div class="card-body p-4 d-flex flex-column">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <small class="text-muted" style="font-size: 0.75rem;">DAS Kali Bekasi Hulu</small>
-                            <small class="text-muted fw-bold" style="font-size: 0.75rem;">4 Jam lalu</small>
-                        </div>
-                        <h5 class="fw-bold mb-3" style="color: #1a202c; line-height: 1.4;">Busa Kimia Pekat & Bau
-                            Menyengat di Bendung</h5>
-                        <p class="text-muted mb-4" style="font-size: 0.85rem; line-height: 1.6;">Ditemukan tumpahan
-                            busa putih membentang 150 meter. Sudah dieskalasi otomatis menuju Unit...</p>
-                        <div class="mt-auto border-top pt-3">
-                            <a href="#" class="text-decoration-none fw-bold"
-                                style="color: #00685F; font-size: 0.9rem;">Baca Selengkapnya</a>
+
+                        <!-- Isi Card -->
+                        <div class="card-body p-4 d-flex flex-column">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <small class="text-muted" style="font-size: 0.75rem;">
+                                    {{ $laporan->sungai->tipe_sungai ?? '-' }}
+                                </small>
+                                <small class="text-muted fw-bold" style="font-size: 0.75rem;">
+                                    {{ $laporan->created_at ?? '-' }}
+                                </small>
+                            </div>
+                            <h5 class="fw-bold mb-3" style="color: #1a202c; line-height: 1.4;">
+                                {{ $laporan->sungai->nama_sungai ?? 'Tanpa Nama' }}
+                            </h5>
                         </div>
                     </div>
                 </div>
-            </div>
+            @empty
+                <div class="col-12 text-center py-5">
+                    <p class="text-muted">Belum ada laporan warga terkini.</p>
+                </div>
+            @endforelse
         </div>
     </div>
 </div>

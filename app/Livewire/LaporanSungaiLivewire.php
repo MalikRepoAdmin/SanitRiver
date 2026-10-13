@@ -7,7 +7,6 @@ use Livewire\WithPagination;
 use App\Models\LaporanSungai;
 use Livewire\Attributes\Layout;
 
-#[Layout('components.layouts.app')]
 class LaporanSungaiLivewire extends Component
 {
     use WithPagination;
@@ -29,6 +28,7 @@ class LaporanSungaiLivewire extends Component
     public function updatingUrutan()  { $this->resetPage(); }
     public function updatingStatus()  { $this->resetPage(); }
 
+    #[Layout('components.layouts.app')]
     public function render()
     {
         $query = LaporanSungai::with(['user', 'sungai', 'gambarSungais']);
@@ -55,7 +55,7 @@ class LaporanSungaiLivewire extends Component
         };
 
         return view('livewire.laporan-sungai', [
-            'laporansungais' => $query->paginate(6),
+            'laporansungais' => $query->paginate(200),
         ]);
     }
 }

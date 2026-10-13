@@ -42,11 +42,7 @@
 
 <body>
 
-    @php
-        $username = $slot->attributes->get('user')->username ?? 'Guest';
-    @endphp
-
-    @include('components.layouts.partials.header', ['username' => $username])
+    @include('components.layouts.partials.header')
 
     {{-- Blank area: every page fills this section --}}
     <main class="page-content">
@@ -58,6 +54,7 @@
     @include('components.layouts.partials.footer')
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    @livewireScripts
     @stack('scripts')
 </body>
 

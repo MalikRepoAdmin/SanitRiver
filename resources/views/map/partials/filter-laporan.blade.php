@@ -1,5 +1,7 @@
-{{-- Filter untuk halaman LAPORAN SUNGAI (Livewire) --}}
 <div class="filter-bar">
+    {{-- Filter untuk halaman LAPORAN SUNGAI (Livewire) --}}
+
+    <link rel="stylesheet" href="{{ asset('css/map-style.css') }}">
 
     {{-- Search --}}
     <div class="filter-search">

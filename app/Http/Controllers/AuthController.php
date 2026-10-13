@@ -32,7 +32,7 @@ class AuthController extends Controller
     {
         $request->validate([
             'email' => 'required|email|unique:users', // email must be unique, 'users' is the table name
-            'username' => 'required|max:255|unique:admins',
+            'username' => 'required|max:255|unique:users',
 
             // 'confirmed' option is required so user can confirm their password to ensure they remember their password
             // TODO: 'confirmed' option needs 'password_confirmation' on frontend. for example <input type="password" name="password_confirmation">
@@ -151,12 +151,12 @@ class AuthController extends Controller
         if (Auth::attempt($authCredentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended(route('beranda')); 
+            return redirect()->route('beranda'); 
         } 
         
-        return back()->withErrors([
-            'login' => 'Email, Username, atau password salah.',
-        ])->onlyInput('login');
+        return back()
+            ->with('error', 'Email, Username, atau password salah.')
+            ->onlyInput('login');
         
     }
 
