@@ -67,12 +67,29 @@
 
                         @auth
                             @if (Auth::id() === (int) ($laporan->user_id ?? 0))
-                                <button type="button" class="laporan-delete-btn"
-                                    wire:click="deleteLaporan({{ $laporan->laporansungai_id }})"
-                                    wire:confirm="Apakah Anda yakin ingin menghapus laporan ini?">
-                                    <span class="laporan-delete-icon" aria-hidden="true">🗑</span>
-                                    <span>Hapus</span>
-                                </button>
+                                <div class="laporan-action-group">
+                                    <select class="laporan-status-select"
+                                        wire:change="updateStatus({{ $laporan->laporansungai_id }}, $event.target.value)"
+                                        aria-label="Ubah status laporan">
+                                        <option value="Bersih" {{ $laporan->status === 'Bersih' ? 'selected' : '' }}>Bersih
+                                        </option>
+                                        <option value="Cukup Bersih"
+                                            {{ $laporan->status === 'Cukup Bersih' ? 'selected' : '' }}>Cukup Bersih
+                                        </option>
+                                        <option value="Kurang Bersih"
+                                            {{ $laporan->status === 'Kurang Bersih' ? 'selected' : '' }}>Kurang Bersih
+                                        </option>
+                                        <option value="Tercemar" {{ $laporan->status === 'Tercemar' ? 'selected' : '' }}>
+                                            Tercemar</option>
+                                    </select>
+
+                                    <button type="button" class="laporan-delete-btn"
+                                        wire:click="deleteLaporan({{ $laporan->laporansungai_id }})"
+                                        wire:confirm="Apakah Anda yakin ingin menghapus laporan ini?">
+                                        <span class="laporan-delete-icon" aria-hidden="true">🗑</span>
+                                        <span>Hapus</span>
+                                    </button>
+                                </div>
                             @endif
                         @endauth
                     </div>

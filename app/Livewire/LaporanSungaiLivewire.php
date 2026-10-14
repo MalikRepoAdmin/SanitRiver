@@ -30,6 +30,27 @@ class LaporanSungaiLivewire extends Component
     public function updatingUrutan()  { $this->resetPage(); }
     public function updatingStatus()  { $this->resetPage(); }
 
+    public function updateStatus(int $laporanId, string $status): void
+    {
+        $laporan = LaporanSungai::findOrFail($laporanId);
+
+        if (!Auth::check() || Auth::id() !== (int) $laporan->user_id) {
+            abort(403, 'Anda tidak memiliki izin untuk memperbarui laporan ini.');
+        }
+
+        $allowedStatuses = ['Bersih', 'Cukup Bersih', 'Kurang Bersih', 'Tercemar'];
+
+        if (!in_array($status, $allowedStatuses, true)) {
+            session()->flash('error', 'Status laporan tidak valid.');
+            return;
+        }
+
+        $laporan->update(['status' => $status]);
+
+        $this->dispatch('$refresh');
+        session()->flash('success', 'Status laporan berhasil diperbarui.');
+    }
+
     public function deleteLaporan(int $laporanId): void
     {
         $laporan = LaporanSungai::findOrFail($laporanId);

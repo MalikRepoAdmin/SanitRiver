@@ -294,6 +294,39 @@
     border-color: #1a9e8f;
 }
 
+/* ====== ACTION GROUP ====== */
+.laporan-action-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.laporan-status-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    color: #0f172a;
+    border-radius: 10px;
+    padding: 8px 30px 8px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    min-width: 130px;
+    cursor: pointer;
+    background-image: linear-gradient(45deg, transparent 50%, #475569 50%), linear-gradient(135deg, #475569 50%, transparent 50%);
+    background-position: calc(100% - 14px) calc(50% - 2px), calc(100% - 9px) calc(50% - 2px);
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+}
+
+.laporan-status-select:focus {
+    outline: 2px solid rgba(26, 158, 143, 0.2);
+    border-color: #1a9e8f;
+}
+
 /* ====== RESPONSIVE ====== */
 @media (max-width: 1024px) {
     .laporan-grid {
