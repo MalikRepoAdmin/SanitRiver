@@ -16,9 +16,9 @@
 
                     {{-- Judul + Lokasi --}}
                     <h3 class="laporan-title">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                             viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
                             <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                             <circle cx="12" cy="10" r="3"></circle>
                         </svg>
@@ -32,18 +32,18 @@
                     @php
                         $statusKey = strtolower($laporan->status ?? '');
                         $statusClass = match ($statusKey) {
-                            'bersih'        => 'badge-bersih',
-                            'cukup bersih'  => 'badge-cukup',
+                            'bersih' => 'badge-bersih',
+                            'cukup bersih' => 'badge-cukup',
                             'kurang bersih' => 'badge-kurang',
-                            'tercemar'      => 'badge-tercemar',
-                            default         => 'badge-default',
+                            'tercemar' => 'badge-tercemar',
+                            default => 'badge-default',
                         };
                         $dotClass = match ($statusKey) {
-                            'bersih'        => 'dot-bersih',
-                            'cukup bersih'  => 'dot-cukup',
+                            'bersih' => 'dot-bersih',
+                            'cukup bersih' => 'dot-cukup',
                             'kurang bersih' => 'dot-kurang',
-                            'tercemar'      => 'dot-tercemar',
-                            default         => 'dot-default',
+                            'tercemar' => 'dot-tercemar',
+                            default => 'dot-default',
                         };
                     @endphp
                     <span class="badge {{ $statusClass }}">
@@ -64,6 +64,17 @@
                                 </span>
                             </div>
                         </div>
+
+                        @auth
+                            @if (Auth::id() === (int) ($laporan->user_id ?? 0))
+                                <button type="button" class="laporan-delete-btn"
+                                    wire:click="deleteLaporan({{ $laporan->laporansungai_id }})"
+                                    wire:confirm="Apakah Anda yakin ingin menghapus laporan ini?">
+                                    <span class="laporan-delete-icon" aria-hidden="true">🗑</span>
+                                    <span>Hapus</span>
+                                </button>
+                            @endif
+                        @endauth
                     </div>
 
                 </div>

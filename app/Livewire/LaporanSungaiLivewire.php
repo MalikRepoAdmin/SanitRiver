@@ -2,10 +2,12 @@
 
 namespace App\Livewire;
 
+use App\Models\LaporanSungai;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Models\LaporanSungai;
-use Livewire\Attributes\Layout;
 
 class LaporanSungaiLivewire extends Component
 {
@@ -27,6 +29,28 @@ class LaporanSungaiLivewire extends Component
     public function updatingWilayah() { $this->resetPage(); }
     public function updatingUrutan()  { $this->resetPage(); }
     public function updatingStatus()  { $this->resetPage(); }
+
+    public function deleteLaporan(int $laporanId): void
+    {
+        $laporan = LaporanSungai::findOrFail($laporanId);
+
+        if (!Auth::check() || Auth::id() !== (int) $laporan->user_id) {
+            abort(403, 'Anda tidak memiliki izin untuk menghapus laporan ini.');
+        }
+
+        foreach ($laporan->gambarSungais as $gambar) {
+            if ($gambar->file_path) {
+                Storage::disk('public')->delete($gambar->file_path);
+            }
+
+            $gambar->delete();
+        }
+
+        $laporan->delete();
+
+        session()->flash('success', 'Laporan berhasil dihapus.');
+        $this->resetPage();
+    }
 
     #[Layout('components.layouts.app')]
     public function render()
