@@ -1,0 +1,339 @@
+/* ---------- Pemeliharaan Sungai ---------- */
+
+.maintenance-page {
+    padding: 48px 20px 72px;
+    background: #f5f5f5;
+}
+
+.maintenance-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.maintenance-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.maintenance-title {
+    margin: 0;
+    font-size: clamp(1.8rem, 2vw, 2.5rem);
+    font-weight: 800;
+    color: #00685F;
+}
+
+.maintenance-subtitle {
+    margin: 8px 0 0;
+    color: #4b5563;
+    font-size: 0.96rem;
+}
+
+.maintenance-primary-btn,
+.maintenance-secondary-btn,
+.maintenance-action-btn,
+.maintenance-submit-btn,
+.maintenance-cancel-btn {
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.maintenance-primary-btn {
+    background: #00685F;
+    border: 1px solid #00685F;
+    color: #fff;
+    padding: 0.7rem 1.2rem;
+}
+
+.maintenance-primary-btn:hover {
+    background: #005a52;
+    color: #fff;
+}
+
+.maintenance-secondary-btn {
+    border: 1px solid #d1d5db;
+    background: #fff;
+    color: #111827;
+    padding: 0.7rem 1rem;
+}
+
+.maintenance-secondary-btn:hover {
+    border-color: #bfc5cf;
+    background: #f9fafb;
+}
+
+.maintenance-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+.maintenance-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 10px 24px rgba(17, 24, 39, 0.05);
+    height: 100%;
+}
+
+.maintenance-card-body {
+    padding: 20px 20px 0;
+}
+
+.maintenance-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.4rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    background: #eef2f7;
+    color: #374151;
+    margin-bottom: 12px;
+}
+
+.maintenance-card-title {
+    margin: 0;
+    font-size: 1.15rem;
+    color: #111827;
+    font-weight: 700;
+}
+
+.maintenance-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.38rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.maintenance-status.success {
+    background: #198754;
+}
+
+.maintenance-status.warning {
+    background: #f59e0b;
+    color: #111827;
+}
+
+.maintenance-status.danger {
+    background: #dc3545;
+}
+
+.maintenance-status.secondary {
+    background: #6c757d;
+}
+
+.maintenance-meta {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 16px;
+    color: #4b5563;
+    font-size: 0.88rem;
+    display: grid;
+    gap: 8px;
+}
+
+.maintenance-meta strong {
+    color: #111827;
+}
+
+.maintenance-description,
+.maintenance-note {
+    margin: 0;
+    color: #4b5563;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.maintenance-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px 20px;
+    border-top: 1px solid #eef2f7;
+    background: #fff;
+}
+
+.maintenance-action-btn {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.85rem;
+    border-radius: 8px;
+}
+
+.maintenance-action-btn.primary {
+    border: 1px solid #00685F;
+    background: transparent;
+    color: #00685F;
+}
+
+.maintenance-action-btn.primary:hover {
+    background: #eaf7f5;
+}
+
+.maintenance-action-btn.danger {
+    border: 1px solid #dc3545;
+    background: transparent;
+    color: #dc3545;
+}
+
+.maintenance-action-btn.danger:hover {
+    background: #fff1f2;
+}
+
+.maintenance-form-shell {
+    max-width: 920px;
+    margin: 0 auto;
+}
+
+.maintenance-form-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 20px;
+    box-shadow: 0 12px 28px rgba(17, 24, 39, 0.06);
+}
+
+.maintenance-form-body {
+    padding: 30px;
+}
+
+.maintenance-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.maintenance-section-title {
+    margin: 0;
+    font-size: clamp(1.6rem, 2vw, 2.2rem);
+    font-weight: 800;
+    color: #00685F;
+}
+
+.maintenance-section-subtitle {
+    margin: 8px 0 0;
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.maintenance-form-grid {
+    display: grid;
+    gap: 20px;
+}
+
+.maintenance-form-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.maintenance-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.maintenance-field.full {
+    grid-column: 1 / -1;
+}
+
+.maintenance-label {
+    color: #1f2937;
+    font-size: 0.92rem;
+    font-weight: 600;
+}
+
+.maintenance-input,
+.maintenance-select,
+.maintenance-textarea {
+    width: 100%;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    background: #fff;
+    padding: 0.8rem 1rem;
+    color: #111827;
+    font-size: 0.96rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.maintenance-input:focus,
+.maintenance-select:focus,
+.maintenance-textarea:focus {
+    outline: none;
+    border-color: #00685F;
+    box-shadow: 0 0 0 3px rgba(0, 104, 95, 0.12);
+}
+
+.maintenance-textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.maintenance-error {
+    display: block;
+    margin-top: 4px;
+    color: #dc3545;
+    font-size: 0.82rem;
+}
+
+.maintenance-footer-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 26px;
+}
+
+.maintenance-submit-btn {
+    background: #00685F;
+    color: #fff;
+    border: 1px solid #00685F;
+    padding: 0.75rem 1.3rem;
+}
+
+.maintenance-submit-btn:hover {
+    background: #005a52;
+}
+
+.maintenance-cancel-btn {
+    background: #fff;
+    color: #374151;
+    border: 1px solid #d1d5db;
+    padding: 0.75rem 1.1rem;
+}
+
+.maintenance-cancel-btn:hover {
+    background: #f9fafb;
+}
+
+@media (max-width: 768px) {
+
+    .maintenance-header,
+    .maintenance-section-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .maintenance-form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .maintenance-form-body {
+        padding: 20px;
+    }
+
+    .maintenance-card-footer {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
