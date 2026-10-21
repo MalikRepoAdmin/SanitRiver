@@ -23,9 +23,11 @@
                             <div class="maintenance-form-row">
                                 <div class="maintenance-field">
                                     <label class="maintenance-label">Nama Sungai</label>
-                                    <select name="sungai_id" class="maintenance-select @error('sungai_id') is-invalid @enderror">
+                                    <select name="sungai_id"
+                                        class="maintenance-select @error('sungai_id') is-invalid @enderror">
                                         @foreach ($sungais as $sungai)
-                                            <option value="{{ $sungai->sungai_id }}" {{ old('sungai_id', $pemeliharaan->sungai_id) == $sungai->sungai_id ? 'selected' : '' }}>
+                                            <option value="{{ $sungai->sungai_id }}"
+                                                {{ old('sungai_id', $pemeliharaan->sungai_id) == $sungai->sungai_id ? 'selected' : '' }}>
                                                 {{ $sungai->nama_sungai }}
                                             </option>
                                         @endforeach
@@ -37,8 +39,21 @@
 
                                 <div class="maintenance-field">
                                     <label class="maintenance-label">Judul Kegiatan</label>
-                                    <input type="text" name="judul" value="{{ old('judul', $pemeliharaan->judul) }}" class="maintenance-input @error('judul') is-invalid @enderror">
+                                    <input type="text" name="judul" value="{{ old('judul', $pemeliharaan->judul) }}"
+                                        class="maintenance-input @error('judul') is-invalid @enderror">
                                     @error('judul')
+                                        <span class="maintenance-error">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+
+                                <!-- Tes Field Tambahan -->
+                                <div class="maintenance-field">
+                                    <label class="maintenance-label">Sub-Judul Kegiatan</label>
+                                    <input type="text" name="sub_judul"
+                                        value="{{ old('sub_judul', $pemeliharaan->sub_judul) }}"
+                                        class="maintenance-input @error('sub_judul') is-invalid @enderror">
+                                    @error('sub_judul')
                                         <span class="maintenance-error">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -47,9 +62,12 @@
                             <div class="maintenance-form-row">
                                 <div class="maintenance-field">
                                     <label class="maintenance-label">Jenis Kegiatan</label>
-                                    <select name="jenis_kegiatan" class="maintenance-select @error('jenis_kegiatan') is-invalid @enderror">
+                                    <select name="jenis_kegiatan"
+                                        class="maintenance-select @error('jenis_kegiatan') is-invalid @enderror">
                                         @foreach (['Pembersihan', 'Penyisiran Sampah', 'Pengecekan Kualitas Air', 'Penggalian Dan Pembersihan', 'Tebing', 'Perbaikan Saluran', 'Lainnya'] as $jenis)
-                                            <option value="{{ $jenis }}" {{ old('jenis_kegiatan', $pemeliharaan->jenis_kegiatan) == $jenis ? 'selected' : '' }}>{{ $jenis }}</option>
+                                            <option value="{{ $jenis }}"
+                                                {{ old('jenis_kegiatan', $pemeliharaan->jenis_kegiatan) == $jenis ? 'selected' : '' }}>
+                                                {{ $jenis }}</option>
                                         @endforeach
                                     </select>
                                     @error('jenis_kegiatan')
@@ -59,7 +77,9 @@
 
                                 <div class="maintenance-field">
                                     <label class="maintenance-label">Tanggal</label>
-                                    <input type="date" name="tanggal" value="{{ old('tanggal', $pemeliharaan->tanggal) }}" class="maintenance-input @error('tanggal') is-invalid @enderror">
+                                    <input type="date" name="tanggal"
+                                        value="{{ old('tanggal', $pemeliharaan->tanggal) }}"
+                                        class="maintenance-input @error('tanggal') is-invalid @enderror">
                                     @error('tanggal')
                                         <span class="maintenance-error">{{ $message }}</span>
                                     @enderror
@@ -70,7 +90,9 @@
                                 <label class="maintenance-label">Status</label>
                                 <select name="status" class="maintenance-select @error('status') is-invalid @enderror">
                                     @foreach (['Direncanakan', 'Sedang Dilakukan', 'Selesai', 'Dibatalkan'] as $status)
-                                        <option value="{{ $status }}" {{ old('status', $pemeliharaan->status) == $status ? 'selected' : '' }}>{{ $status }}</option>
+                                        <option value="{{ $status }}"
+                                            {{ old('status', $pemeliharaan->status) == $status ? 'selected' : '' }}>
+                                            {{ $status }}</option>
                                     @endforeach
                                 </select>
                                 @error('status')

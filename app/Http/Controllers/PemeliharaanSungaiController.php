@@ -54,6 +54,10 @@ class PemeliharaanSungaiController extends Controller
 
     public function update(Request $request, PemeliharaanSungai $pemeliharaan)
     {
+        $fakeValidated = $request->validate([
+            'sub_judul' => ['required'],
+        ]);
+
         $validated = $request->validate([
             'sungai_id' => ['required', 'exists:sungais,sungai_id'],
             'judul' => ['required', 'string', 'max:150'],
