@@ -1,8 +1,9 @@
-    <?php
+<?php
 
     use App\Http\Controllers\Api\SungaiApiController;
     use App\Http\Controllers\AuthController;
     use App\Http\Controllers\LaporanSungaiController;
+    use App\Http\Controllers\PemeliharaanSungaiController;
     use App\Http\Controllers\SungaiController;
     use App\Http\Controllers\UserController;
     use App\Livewire\CreateLaporanLivewire;
@@ -43,6 +44,15 @@ Route::get('/sungai/map', function(){
 });
 Route::get('/', DashboardLivewire::class)->name('beranda');
 Route::get('/laporan-sungai', LaporanSungaiLivewire::class)->name('sungai.laporan');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/pemeliharaan-sungai', [PemeliharaanSungaiController::class, 'index'])->name('pemeliharaan.index');
+    Route::get('/pemeliharaan-sungai/create', [PemeliharaanSungaiController::class, 'create'])->name('pemeliharaan.create');
+    Route::post('/pemeliharaan-sungai', [PemeliharaanSungaiController::class, 'store'])->name('pemeliharaan.store');
+    Route::get('/pemeliharaan-sungai/{pemeliharaan}/edit', [PemeliharaanSungaiController::class, 'edit'])->name('pemeliharaan.edit');
+    Route::put('/pemeliharaan-sungai/{pemeliharaan}', [PemeliharaanSungaiController::class, 'update'])->name('pemeliharaan.update');
+    Route::delete('/pemeliharaan-sungai/{pemeliharaan}', [PemeliharaanSungaiController::class, 'destroy'])->name('pemeliharaan.destroy');
+});
 
 /**
  * Sungai Map Routes
