@@ -58,4 +58,13 @@ class LaporanSungai extends Model
             'imageable'
         );
     }
+
+    public function tindakLanjuts()
+    {
+        return $this->hasMany(
+            tindakLanjut::class,
+            'laporansungai_id'
+        );
+    }
 }
+    
