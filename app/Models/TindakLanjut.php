@@ -13,6 +13,7 @@ class tindakLanjut extends Model
     protected $fillable = [
         'laporansungai_id',
         'petugas',
+        'pendamping',
         'tindakan',
         'status',
         'tanggal_tindak_lanjut',

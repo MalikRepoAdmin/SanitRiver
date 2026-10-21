@@ -15,8 +15,8 @@ return new class extends Migration
         $table->id();
         $table->unsignedBigInteger('laporansungai_id'); 
         $table->foreign('laporansungai_id')->references('laporansungai_id')->on('laporan_sungais')->onDelete('cascade');
-        
         $table->string('petugas');
+        $table->string('pendamping');
         $table->text('tindakan');
         $table->enum('status', ['pending', 'proses', 'selesai'])->default('pending');
         $table->date('tanggal_tindak_lanjut');

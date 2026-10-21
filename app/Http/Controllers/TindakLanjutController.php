@@ -20,6 +20,7 @@ class TindakLanjutController extends Controller
     {
         $validated = $request->validate([
             'petugas' => 'required|string|max:100',
+            'pendamping' => 'required|string|max:100',
             'tindakan' => 'required|string|min:10',
             'status' => 'required|in:pending,proses,selesai',
             'tanggal_tindak_lanjut' => 'required|date',

@@ -25,6 +25,12 @@
                 </div>
 
                 <div class="mb-3">
+                    <label>Nama Pendamping Petugas</label>
+                    <input type="text" name="pendamping" class="form-control @error('pendamping') is-invalid @enderror" value="{{ old('pendamping') }}">
+                    @error('pendamping') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                </div>
+
+                <div class="mb-3">
                     <label>Deskripsi Tindakan</label>
                     <textarea name="tindakan" class="form-control @error('tindakan') is-invalid @enderror" rows="3">{{ old('tindakan') }}</textarea>
                     @error('tindakan') <div class="invalid-feedback">{{ $message }}</div> @enderror
