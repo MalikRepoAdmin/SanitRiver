@@ -19,6 +19,11 @@
                 <li><a href="{{ route('beranda') }}">Beranda</a></li>
                 <li><a href="{{ route('sungai.laporan') }}">Laporan Sungai</a></li>
                 <li><a href="{{ route('sungai.map') }}">Peta Sungai</a></li>
+                
+                <!-- UTS -->
+                <li><a href="{{ route('database.metric') }}" class="{{ Route::is('database.metric') ? 'fw-bold text-primary' : '' }}">📊 Metrik Database (UTS)</a></li>
+        </ul>
+            
             </ul>
         </div>
 

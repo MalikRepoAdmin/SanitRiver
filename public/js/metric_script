@@ -1,0 +1,14 @@
+document.addEventListener("DOMContentLoaded", function () {
+    console.log("Database Metrics Engine Successfully Loaded.");
+
+    // Berikan efek hover interaktif pada tombol hapus data CRUD
+    const deleteButton = document.querySelector(".btn-delete-action");
+    if (deleteButton) {
+        deleteButton.addEventListener("mouseover", function () {
+            deleteButton.style.opacity = "0.85";
+        });
+        deleteButton.addEventListener("mouseout", function () {
+            deleteButton.style.opacity = "1.0";
+        });
+    }
+});

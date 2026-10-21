@@ -8,6 +8,7 @@ use App\Models\LaporanSungai;
 use Livewire\Attributes\Layout;
 
 class LaporanSungaiLivewire extends Component
+
 {
     use WithPagination;
 
@@ -28,17 +29,29 @@ class LaporanSungaiLivewire extends Component
     public function updatingUrutan()  { $this->resetPage(); }
     public function updatingStatus()  { $this->resetPage(); }
 
+    // Fungsi untuk menghapus data 1 per 1 berdasarkan ID spesifik
+    public function deleteLaporan($id)
+    {
+        $laporan = LaporanSungai::find($id);
+        
+        if ($laporan) {
+            $laporan->delete();
+            
+            session()->flash('message', 'Laporan berhasil dihapus.');
+        }
+    }
+
     #[Layout('components.layouts.app')]
     public function render()
     {
         $query = LaporanSungai::with(['user', 'sungai', 'gambarSungais']);
 
-        // Filter status
+        // 1. Filter status
         if ($this->status !== 'semua') {
             $query->where('status', 'like', '%' . $this->status . '%');
         }
 
-        // Search nama / alamat sungai
+        // 2. Search nama / alamat sungai (PERBAIKAN DI SINI)
         if ($this->search) {
             $query->whereHas('sungai', function ($q) {
                 $q->where('nama_sungai', 'like', '%' . $this->search . '%')
@@ -46,16 +59,15 @@ class LaporanSungaiLivewire extends Component
             });
         }
 
-        // Urutan
+        // 3. Urutan
         match ($this->urutan) {
             'terlama' => $query->oldest(),
-            'populer' => $query->withCount('gambarSungais')
-                              ->orderByDesc('gambar_sungais_count'),
+            'populer' => $query->withCount('gambarSungais')->orderByDesc('gambar_sungais_count'),
             default   => $query->latest(),
         };
 
         return view('livewire.laporan-sungai', [
-            'laporansungais' => $query->paginate(200),
+            'laporansungais' => $query->paginate(20), // Disarankan 20 agar tidak terlalu berat
         ]);
     }
 }

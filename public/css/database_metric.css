@@ -1,0 +1,45 @@
+.metric-container {
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+.card-metric {
+    border: none;
+    border-radius: 0.5rem;
+}
+
+.card-metric-blue {
+    background: linear-gradient(45deg, #1e3c72, #2a5298);
+    color: #ffffff;
+}
+
+.card-metric-yellow {
+    background: linear-gradient(45deg, #f1c40f, #f39c12);
+    color: #212529;
+}
+
+.card-label {
+    font-size: 0.875rem;
+    text-uppercase: uppercase;
+    font-weight: 700;
+    opacity: 0.75;
+}
+
+.card-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.table-card {
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.code-table {
+    color: #d63384;
+    font-weight: bold;
+}
+
+.btn-delete-action {
+    transition: background-color 0.2s ease;
+}

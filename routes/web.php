@@ -51,3 +51,12 @@ Route::get('/sungai-map', [SungaiController::class, 'map'])->name('sungai.map');
 // Route to display Blade page where map placed
 Route::get('/user-dashboard', [SungaiController::class, 'index'])->name('user.dashboard');
 
+use App\Http\Controllers\DatabaseMetricController;
+
+/**
+ * Database Metric Routes
+ */
+// Jalur Rute 
+Route::get('/dashboard/database-metric', [DatabaseMetricController::class, 'index'])->name('database.metric');
+Route::post('/dashboard/database-metric', [DatabaseMetricController::class, 'store'])->name('database.metric.store');
+Route::delete('/dashboard/database-metric/{id}', [DatabaseMetricController::class, 'destroy'])->name('database.metric.destroy');
