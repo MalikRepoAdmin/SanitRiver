@@ -61,7 +61,7 @@ class CreateLaporanLivewire extends Component
         session()->flash('success', 'Laporan berhasil dikirim.');
 
         // Redirect ke halaman detail / daftar laporan
-        return redirect()->route('sungai.laporan');
+        $this->redirectRoute('sungai.laporan', navigate: true);
     }
 
     public function render()

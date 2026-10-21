@@ -27,6 +27,9 @@ class AuthController extends Controller
 
     /**
      * Process Register
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function registerUser(Request $request)
     {
@@ -129,6 +132,9 @@ class AuthController extends Controller
 
     /**
      * Process Login
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function loginUser(Request $request)
     {
