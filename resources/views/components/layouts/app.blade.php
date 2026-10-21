@@ -46,9 +46,8 @@
 
     {{-- Blank area: every page fills this section --}}
     <main class="page-content">
-        {{-- @yield('content') --}}
-
-        {{ $slot }}
+        @yield('content')
+        {{ $slot ?? '' }}
     </main>
 
     @include('components.layouts.partials.footer')

@@ -11,12 +11,14 @@
                 </div>
             </div>
         </div>
+        
         {{-- Kolom Tengah Menu Navigasi --}}
         <div class="col-md-4">
             <div class="d-flex justify-content-center gap-4" id="btn-navbar">
                 <a class="btn" href="/" wire:navigate>Beranda</a>
                 <a class="btn" href="/laporan-sungai" wire:navigate>Laporan Sungai</a>
                 <a class="btn" href="/sungai/map">Peta Sungai</a>
+                <a class="btn" href="{{ route('usulan-infrastruktur.index') }}" wire:navigate>Usulan Infrastruktur</a>
             </div>
         </div>
 
