@@ -8,7 +8,7 @@ class tindakLanjut extends Model
 {
     protected $table = 'tindak_lanjuts';
 
-    protected $primaryKey = 'tindaklanjut_id';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
         'laporansungai_id',
