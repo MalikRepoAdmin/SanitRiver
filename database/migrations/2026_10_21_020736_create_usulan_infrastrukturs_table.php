@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('usulan_infrastrukturs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users', 'id')->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained('users', 'id')->onDelete('cascade');
             $table->string('lokasi_usulan');
             $table->string('jenis_infrastruktur'); 
+            $table->integer('jumlah_barang'); // <-- Kolom baru untuk jumlah barang
             $table->text('alasan_kebutuhan');
             $table->enum('tingkat_urgensi', ['Tinggi', 'Sedang', 'Rendah'])->default('Sedang');
             $table->timestamps();

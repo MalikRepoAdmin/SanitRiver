@@ -25,6 +25,7 @@ class UsulanInfrastrukturController extends Controller
         $request->validate([
             'lokasi_usulan' => 'required',
             'jenis_infrastruktur' => 'required',
+            'jumlah_barang' => 'required|integer|min:1', // Validasi jumlah barang
             'alasan_kebutuhan' => 'required|min:10',
             'tingkat_urgensi' => 'required|in:Tinggi,Sedang,Rendah'
         ]);
@@ -44,6 +45,7 @@ class UsulanInfrastrukturController extends Controller
         $request->validate([
             'lokasi_usulan' => 'required',
             'jenis_infrastruktur' => 'required',
+            'jumlah_barang' => 'required|integer|min:1', // Validasi jumlah barang
             'alasan_kebutuhan' => 'required|min:10',
             'tingkat_urgensi' => 'required|in:Tinggi,Sedang,Rendah'
         ]);

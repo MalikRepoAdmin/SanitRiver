@@ -49,6 +49,17 @@
                 @enderror
             </div>
 
+            <!-- Jumlah Barang -->
+            <div class="mb-4 pb-2">
+                <input type="number" class="form-control border-0 border-bottom rounded-0 shadow-none px-0" 
+                    name="jumlah_barang" placeholder="Jumlah Barang" min="1"
+                    style="color: #6b7280; border-bottom: 1.5px solid #9ca3af !important; font-size: 15px; background-color: transparent;" 
+                    value="{{ old('jumlah_barang', $usulanInfrastruktur->jumlah_barang) }}" required>
+                @error('jumlah_barang')
+                    <div style="color: red; font-size: 12px; margin-top: 5px;">{{ $message }}</div>
+                @enderror
+            </div>
+
             <!-- Alasan Kebutuhan -->
             <div class="mb-4 pb-2">
                 <textarea class="form-control border-0 border-bottom rounded-0 shadow-none px-0" 

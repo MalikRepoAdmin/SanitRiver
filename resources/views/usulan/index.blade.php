@@ -16,6 +16,13 @@
         </div>
     @endif
 
+    @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
     <div class="card border-0 shadow-sm p-4" style="border-radius: 12px;">
         <div class="table-responsive">
             <table class="table align-middle mb-0">
@@ -44,7 +51,7 @@
                             @endif
                         </td>
                         <td class="text-center">
-                            <!-- Tombol Edit yang ditambahkan -->
+                            <!-- Tombol Edit -->
                             <a href="{{ route('usulan-infrastruktur.edit', $item->id) }}" class="btn btn-sm btn-outline-warning px-3 me-1">
                                 Edit
                             </a>
