@@ -1,13 +1,12 @@
-@extends('layouts.main') 
+@extends('components.layouts.app')
 
 @section('title', 'Tindak Lanjut Laporan Sungai - SanitRiver')
-
 @section('content')
 <div class="container mt-4">
     <h2>Tindak Lanjut Laporan Sungai</h2>
     <!-- <p class="text-muted">Lokasi: {{ $laporanSungai->lokasi ?? $laporanSungai->nama_sungai ?? 'Laporan #'.$laporanSungai->id }}</p> -->
     <p class="text-muted">Laporan ID: #{{ $laporanSungai->laporansungai_id }} | Sungai: {{ $laporanSungai->sungai->nama_sungai ?? 'N/A' }}</p>
-    
+
     {{-- Notifikasi Sukses --}} 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
@@ -17,7 +16,7 @@
     <div class="card mb-4">
         <div class="card-header">Tambah Tindak Lanjut</div>
         <div class="card-body">
-            <form action="{{ route('tindak-lanjut.store', $laporanSungai -> $laporanSungai_id) }}" method="POST">
+          <form action="{{ route('tindak-lanjut.store', $laporanSungai->laporansungai_id) }}" method="POST">
                 @csrf
                 <div class="mb-3">
                     <label>Nama Petugas</label>

@@ -45,10 +45,12 @@
     @include('components.layouts.partials.header')
 
     {{-- Blank area: every page fills this section --}}
-    <main class="page-content">
-        {{-- @yield('content') --}}
-
-        {{ $slot }}
+      <main class="page-content">
+        @if (isset($slot))
+            {{ $slot }}
+        @else
+            @yield('content')
+        @endif
     </main>
 
     @include('components.layouts.partials.footer')

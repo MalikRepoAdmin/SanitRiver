@@ -62,9 +62,8 @@ class LaporanSungai extends Model
     public function tindakLanjuts()
     {
         return $this->hasMany(
-            tindakLanjut::class,
+            TindakLanjut::class,
             'laporansungai_id'
         );
     }
 }
-    
