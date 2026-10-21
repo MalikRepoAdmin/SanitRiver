@@ -16,6 +16,7 @@
             <div class="d-flex justify-content-center gap-4" id="btn-navbar">
                 <a class="btn" href="/" wire:navigate>Beranda</a>
                 <a class="btn" href="/laporan-sungai" wire:navigate>Laporan Sungai</a>
+                <a class="btn" href="/pemeliharaan-sungai">Pemeliharaan</a>
                 <a class="btn" href="/sungai/map">Peta Sungai</a>
             </div>
         </div>

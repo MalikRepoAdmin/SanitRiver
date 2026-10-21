@@ -46,8 +46,6 @@
 
     {{-- Blank area: every page fills this section --}}
     <main class="page-content">
-        {{-- @yield('content') --}}
-
         {{ $slot }}
     </main>
 
